@@ -38,13 +38,12 @@ const PostCreateForm = () => {
   };
 
   return (
-    <div className="relative mb-5">
+    <div className="relative mb-5 w-full max-w-3xl mx-auto">
       <Button onClick={() => setIsFormVisible(!isFormVisible)} className="flex items-center space-x-2">
-        <Plus className="w-5 h-5" /> 
+        <Plus className="w-5 h-5" />
         <span>Créer un texte</span>
       </Button>
 
-      
       <AnimatePresence>
         {isFormVisible && (
           <motion.div
@@ -52,7 +51,7 @@ const PostCreateForm = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="mt-4 p-6 border rounded-lg bg-white shadow-lg"
+            className="mt-4 p-6 border rounded-lg bg-white shadow-lg space-y-4"
           >
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -66,13 +65,9 @@ const PostCreateForm = () => {
               </div>
               <div>
                 <label>Contenu</label>
-                <ReactQuill
-                  value={content}
-                  onChange={setContent}
-                  className="h-50"
-                />
+                <ReactQuill value={content} onChange={setContent} className="h-50" />
               </div>
-              <div className="py-8">
+              <div>
                 <label>Image d’en-tête (optionnelle)</label>
                 <input type="file" onChange={handleImageChange} className="block w-full" />
               </div>
@@ -85,20 +80,17 @@ const PostCreateForm = () => {
               {isError && <p className="text-red-500">{error?.data?.message}</p>}
             </form>
 
-           
             {showPreview && (
-              <div className="flex flex-col gap-10 p-8 max-h-screen mx-auto font-lora rounded-md shadow-lg bg-[url('/paperBg3.png')] bg-cover bg-no-repeat bg-center mt-10 mb-10 ">
-              
-              {headerImage && (
+              <div className="mt-6 p-4 border rounded-lg bg-gray-50">
+                {headerImage && (
                   <img
                     src={URL.createObjectURL(headerImage)}
                     alt="Prévisualisation de l'image"
-                    className="w-[50%] h-auto object-cover rounded-md mb-4 shadow-lg"
+                    className="w-full h-auto object-cover rounded-md mb-4 shadow-lg"
                   />
                 )}
-                <h2 className="text-3xl font-bold">{title}</h2>
-                <div dangerouslySetInnerHTML={{ __html: content }} className="text-lg w-[80%]"/>
-               
+                <h2 className="text-xl font-bold">{title}</h2>
+                <div dangerouslySetInnerHTML={{ __html: content }} className="text-base" />
               </div>
             )}
           </motion.div>

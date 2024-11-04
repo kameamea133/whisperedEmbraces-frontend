@@ -60,20 +60,20 @@ const Navbar = () => {
         </div>
 
         {/* Menu Desktop */}
-        <ul className="hidden md:flex space-x-8">
-            <li><Link to="/" className="hover:text-gray-300 duration-500" onClick={() => {
+        <ul className="hidden md:flex space-x-8 text-lg">
+            <li><Link to="/" className="relative  before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full" onClick={() => {
       document.getElementById('etreintes-section')?.scrollIntoView({ behavior: 'smooth' });
     }} >Étreintes</Link></li>
-            <li><Link to="/" className="hover:text-gray-300 duration-500">Inspirations</Link></li>
+            <li><Link to="/" className="relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">Inspirations</Link></li>
             {userInfo && (
             <>
               <li>
-                <Link to="/posts" className="hover:text-gray-300 duration-500">
+                <Link to="/posts" className="relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">
                   Mes textes
                 </Link>
               </li>
               <li>
-              <Link to="/profile" className="hover:text-gray-300">Mon profil</Link>
+              <Link to="/profile" className="relative  before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">Mon profil</Link>
               </li>
             </>
           )}
@@ -83,9 +83,9 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-4">
             {userInfo ? (
                 <div className="flex items-center gap-4">
-                    <p>Bonjour {userInfo.username}</p>
+                    <p className="text-lg">Bonjour {userInfo.username}</p>
                     <Button
-                        className="border px-4 py-2 rounded-md hover:bg-white transition duration-300"
+                        className="text-shadow text-lg px-4 py-2 rounded-md hover:bg-white transition duration-300"
                         variant="ghost"
                         onClick={handleLogout}
                     >
@@ -96,8 +96,8 @@ const Navbar = () => {
             ) : (
                 <Button
                     onClick={handleLoginClick}
-                    className="border px-4 py-2 rounded-md hover:bg-white transition duration-300"
-                    variant="ghost"
+                    className=" px-4 py-2  rounded-md hover:bg-white transition duration-800 hover:text-black"
+                    
                 >
                     Connexion
                 </Button>
@@ -109,59 +109,59 @@ const Navbar = () => {
             className="md:hidden flex items-center justify-center p-2"
             onClick={() => setMenuOpen(!menuOpen)}
         >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 text-black" />}
         </button>
     </div>
 
     {/* Mobile Menu */}
-    <AnimatePresence>
-    {menuOpen && (
-          <motion.div
-            className="md:hidden bg-black/30 text-white p-4 space-y-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+<AnimatePresence>
+  {menuOpen && (
+    <motion.div
+      className="md:hidden bg-black text-white p-4 space-y-4 text-shadow h-screen flex flex-col justify-center items-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+    >
+      <Link to="/" className="block hover:text-gray-300 text-2xl" onClick={() => setMenuOpen(false)}>
+        Étreintes
+      </Link>
+      <Link to="/" className="block hover:text-gray-300 text-2xl" onClick={() => setMenuOpen(false)}>
+        Inspirations
+      </Link>
+      {userInfo ? (
+        <>
+          <Link to="/posts" className="block hover:text-gray-300 text-2xl" onClick={() => setMenuOpen(false)}>
+            Mes Textes
+          </Link>
+          <Link to="/profile" className="block hover:text-gray-300 text-2xl" onClick={() => setMenuOpen(false)}>
+            Mon profil
+          </Link>
+          <button
+            className="w-full  hover:text-gray-300 text-2xl mt-4"
+            onClick={() => {
+              handleLogout();
+              setMenuOpen(false);
+            }}
           >
-            <Link to="/" className="block hover:text-gray-300" onClick={() => setMenuOpen(false)}>
-              Étreintes
-            </Link>
-            <Link to="/inspirations" className="block hover:text-gray-300" onClick={() => setMenuOpen(false)}>
-              Inspirations
-            </Link>
-            {userInfo ? (
-              <>
-                <Link to="/posts" className="block hover:text-gray-300" onClick={() => setMenuOpen(false)}>
-                  Mes Textes
-                </Link>
-                
-                <Link to="/profile" className="block hover:text-gray-300" onClick={() => setMenuOpen(false)}>
-                  Mon profil
-                </Link>
-                <button
-                  className="w-full text-left hover:text-gray-300"
-                  onClick={() => {
-                    handleLogout();
-                    setMenuOpen(false);
-                  }}
-                >
-                  Déconnexion
-                </button>
-              </>
-            ) : (
-              <button
-                className="w-full text-left hover:text-gray-300"
-                onClick={() => {
-                  handleLoginClick();
-                  setMenuOpen(false);
-                }}
-              >
-                Connexion
-              </button>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+            Déconnexion
+          </button>
+        </>
+      ) : (
+        <button
+          className="w-full text-left hover:text-gray-300 text-2xl mt-4"
+          onClick={() => {
+            handleLoginClick();
+            setMenuOpen(false);
+          }}
+        >
+          Connexion
+        </button>
+      )}
+    </motion.div>
+  )}
+</AnimatePresence>
+
 </nav>
   )
 }
