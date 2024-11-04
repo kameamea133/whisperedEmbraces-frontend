@@ -1,9 +1,15 @@
 import Hero from "@/components/Hero"
+import { useGetPostsQuery } from "@/slices/postsApiSlice"
+import PostGrid from "@/components/PostGrid";
+import AboutSection from "@/components/AboutSection";
 const HomeScreen = () => {
+  const { data: posts } = useGetPostsQuery();
+ 
   return (
-    <div>
+    <div className="bg-[#E2DFD7]/70">
       <Hero />
-      <div className="w-full h-screen bg-red-300"></div>
+      <AboutSection />
+      <PostGrid posts={posts} />
     </div>
   )
 }

@@ -1,13 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import HomeScreen from './screens/HomeScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import PostsScreen from './screens/PostsScreen'
+import ArticleScreen from './screens/ArticleScreen'
 import store from './store'
 import PrivateRoute from './components/PrivateRoute'
 import { Provider } from 'react-redux'
+
 import './index.css'
 import App from './App.jsx'
 
@@ -19,9 +22,11 @@ const router = createBrowserRouter(
       <Route index={true} element={<HomeScreen />} />
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
-
+      <Route path='/post/:id' element={<ArticleScreen />} />
+    {/* Private Routes */}
       <Route element={<PrivateRoute />}>
       <Route path='/profile' element={<ProfileScreen />} />
+      <Route path='/posts' element={<PostsScreen />} />
       </Route>
     </Route>
   )

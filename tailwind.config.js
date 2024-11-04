@@ -6,7 +6,10 @@ module.exports = {
   theme: {
   	extend: {
 		fontFamily: {
-			whisper:["Whisper"]
+			lora: ['Lora', 'serif'],
+			whisper:["Whisper"],
+			raleway:["Raleway"],
+			tangerine:["Tangerine"],
 		},
   		borderRadius: {
   			lg: 'var(--radius)',
