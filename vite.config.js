@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import path from "path"
 
 import react from "@vitejs/plugin-react"
@@ -14,7 +15,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'https://whispered-embraces-backend-q408kf4zb-kameamea133s-projects.vercel.app/', 
+      '/api': 'https://whispered-embraces-backend-q408kf4zb-kameamea133s-projects.vercel.app', 
     },
   },
 })
