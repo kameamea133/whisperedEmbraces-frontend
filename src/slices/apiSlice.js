@@ -5,5 +5,6 @@ const baseQuery = fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_BASE_URL, c
 export const apiSlice = createApi({
     baseQuery,
     tagTypes: ["User", "Post"],
+    // eslint-disable-next-line no-unused-vars
     endpoints: (builder) => ({}),
 });
