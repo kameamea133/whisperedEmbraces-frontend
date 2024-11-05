@@ -48,7 +48,7 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 text-white transition-colors duration-700 ${navbarBg ? 'bg-slate-400/60 shadow-md' : 'bg-transparent'}`}>
-    <div className="container mx-auto px-6 py-1 text-shadow flex justify-between items-center font-raleway">
+    <div className="container mx-auto px-6  py-1 text-shadow flex justify-between items-center font-raleway">
         {/* Logo */}
         <div className="text-lg font-bold relative flex items-center gap-4">
             <Link to="/"
@@ -60,7 +60,7 @@ const Navbar = () => {
         </div>
 
         {/* Menu Desktop */}
-        <ul className="hidden md:flex space-x-8 text-lg">
+        <ul className="hidden md:flex space-x-8 text-lg pl-10">
             <li><Link to="/" className="relative  before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full" onClick={() => {
       document.getElementById('etreintes-section')?.scrollIntoView({ behavior: 'smooth' });
     }} >Étreintes</Link></li>
@@ -117,12 +117,13 @@ const Navbar = () => {
 <AnimatePresence>
   {menuOpen && (
     <motion.div
-      className="md:hidden bg-black text-white p-4 space-y-4 text-shadow h-screen flex flex-col justify-center items-center"
+      className="md:hidden bg-black text-white p-4 space-y-4 text-shadow h-screen flex flex-col  items-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
+    <div className="h-[100px]"></div>
       <Link to="/" className="block hover:text-gray-300 text-2xl" onClick={() => setMenuOpen(false)}>
         Étreintes
       </Link>

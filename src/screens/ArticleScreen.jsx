@@ -12,7 +12,7 @@ const ArticleScreen = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center px-4">
-      <div className="w-full p-6 pt-[100px]"></div>
+      <div className=" hidden md:w-full p-6 md:pt-[100px]"></div>
       
       <div className="flex flex-col gap-6 p-4 md:p-8 w-full md:w-[80%] lg:w-[70%] xl:w-[60%] mx-auto font-lora rounded-md shadow-lg bg-[url('/paperBg3.png')] bg-cover bg-no-repeat bg-center mt-10 mb-10">
         {post.headerImage && (
