@@ -15,7 +15,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'https://whispered-embraces-backend.vercel.app', 
+      '/api': 'http://localhost:5000', 
     },
   },
 })
