@@ -6,7 +6,8 @@ import { logout } from "../slices/authSlice";
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLogoutMutation } from "../slices/usersApiSlice";
+import { auth } from "@/firebaseConfig"; 
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
   
@@ -15,7 +16,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.auth);
-    const [logoutApiCall] = useLogoutMutation();
+   
      
     const handleScroll = () => {
         if (window.scrollY >= 80) {
@@ -37,13 +38,13 @@ const Navbar = () => {
 
       const handleLogout = async () => {
         try {
-          await logoutApiCall().unwrap();
+          await signOut(auth); 
           dispatch(logout());
           navigate("/");
         } catch (error) {
-          console.log(error);
+          console.log("Erreur lors de la déconnexion :", error);
         }
-    };
+      };
     
 
   return (

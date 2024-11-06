@@ -2,22 +2,23 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import FormContainer from '@/components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLoginMutation } from '@/slices/usersApiSlice';
 import { setCredentials } from '@/slices/authSlice';
 import { Button } from '@/components/ui/button';
 import SoftNotification from '@/components/SoftNotification';
 import Spinner from '@/components/Spinner';
-
+import { auth } from "@/firebaseConfig"; 
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [login, { isLoading }] = useLoginMutation();
+    
 
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -29,19 +30,30 @@ const LoginScreen = () => {
 
 
     const submitHandler = async (e) => {
-        e.preventDefault();
+      e.preventDefault();
+      setLoading(true);
+      try {
+        
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        
+        
+        const user = userCredential.user;
 
-        try {
-          const res = await login({ email, password }).unwrap();
-          dispatch(setCredentials({ ...res }));
-          navigate('/');
-        } catch (err) {
-          setError(err.data.message || err.error);
-        }
-    }
+        
+        dispatch(setCredentials({
+          email: user.email,
+          uid: user.uid,
+        }));
+
+        
+        navigate('/');
+      } catch (err) {
+        setError(err.message);
+      }
+  };
 
     const closeNotification = () => {
-      setError(null); // Réinitialise l'erreur pour cacher la notification
+      setError(null); 
     };
 
   return (
@@ -80,7 +92,7 @@ const LoginScreen = () => {
           />
         </div>
        
-          {isLoading && <Spinner />}
+          {loading && <Spinner />}
 
         <Button
           

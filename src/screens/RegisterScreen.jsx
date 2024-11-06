@@ -3,20 +3,25 @@ import { Link, useNavigate } from 'react-router-dom'
 import FormContainer from '@/components/FormContainer';
 import { Button } from '@/components/ui/button';
 import Spinner from '@/components/Spinner';
-import { useRegisterMutation } from '@/slices/usersApiSlice';
 import { setCredentials } from '@/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import SoftNotification from '@/components/SoftNotification';
+import { auth } from '@/firebaseConfig';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 
 const RegisterScreen = () => {
+
+ 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [register, { isLoading }] = useRegisterMutation();
+   
 
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -28,18 +33,31 @@ const RegisterScreen = () => {
 
 
     const submitHandler = async (e) => {
-        e.preventDefault();
-        if (password !== confirmPassword) {
-           SoftNotification('error', 'Le mot de passe ne correspond pas');
-        } else {
-            try {
-                const res = await register({ username, email, password }).unwrap();
-                dispatch(setCredentials({ ...res }));
-                navigate('/');
-            } catch (err) {
-                SoftNotification('error', err.data.message || err.error);
-            }
+      e.preventDefault();
+      if (password !== confirmPassword) {
+        SoftNotification('error', 'Le mot de passe ne correspond pas');
+      } else {
+        try {
+          setLoading(true);
+         
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          
+          
+          const user = userCredential.user;
+          dispatch(setCredentials({
+            username: username,
+            email: user.email,
+            uid: user.uid, 
+          }));
+  
+          SoftNotification('success', 'Inscription réussie. Veuillez vous connecter.');
+          navigate('/login');
+        } catch (err) {
+          SoftNotification('error', err.message);
+        } finally {
+          setLoading(false);
         }
+      }
     };
 
   return (
@@ -107,7 +125,7 @@ const RegisterScreen = () => {
           />
         </div>
 
-        {isLoading && <Spinner />}
+        {loading && <Spinner />}
        
         <Button
           
