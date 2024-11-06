@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({ baseUrl: "https://whispered-embraces-backend.vercel.app", credentials: "include" });
+console.log("Base URL:", "https://whispered-embraces-backend.vercel.app");
+
 
 export const apiSlice = createApi({
     baseQuery,
