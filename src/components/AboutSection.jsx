@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 const AboutSection = () => {
   return (
     <div 
-      className="flex items-center justify-center w-[90%] lg:w-[76%] mx-auto h-[70vh] md:h-screen bg-[url('/aboutBg.png')] bg-cover bg-no-repeat bg-center my-10 md:my-[150px] font-lora rounded-sm shadow-lg"
+      className="flex items-center justify-center w-[90%] lg:w-[76%] mx-auto h-[85vh] md:h-screen bg-[url('/aboutBg.png')] bg-cover bg-no-repeat bg-center my-10 md:my-[150px] font-lora rounded-sm shadow-lg"
     >
-      <div className="w-full md:w-[80%] lg:w-[60%] flex flex-wrap gap-4 md:gap-8 text-base md:text-lg lg:text-xl px-2 py-4 md:p-6 lg:p-8 rounded-lg ">
+      <div className="w-full md:w-[80%] lg:w-[60%] flex flex-wrap gap-3 md:gap-4 text-base md:text-lg lg:text-lg px-2 py-4 md:p-6 lg:p-8 rounded-lg ">
         {[
           "...chaque mot est un soupir venu du cœur, murmurant la vérité des émotions. Ici, les écrits deviennent l’écho de nos songes, l’expression de nos joies secrètes et de nos peines muettes, tissées dans l’étoffe même de l’existence.",
           "Sur ces pages, chaque poème, chaque pensée, est une offrande : un fragment de l’âme partagé dans l’espérance de toucher celle d’un autre. C’est un espace où l’écriture est un chant, une prière murmurée à l’univers, une étreinte entre l’éphémère et l’éternité.",
@@ -17,7 +17,7 @@ const AboutSection = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1, delay: index * 0.7 }}
-            viewport={{ once: false, amount: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
           >
             {text}
           </motion.h2>
