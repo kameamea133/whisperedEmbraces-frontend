@@ -1,7 +1,23 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Button } from './ui/button';
 
 const AboutSection = () => {
+  const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.auth.userInfo);
+
+  const handleButtonClick = () => {
+    if (userInfo) {
+      navigate('/posts'); 
+    } else {
+      navigate('/login'); 
+    }
+  };
+
+
   return (
+    <div className='flex flex-col '>
     <div 
     id="about"
       className="flex items-center justify-center w-[90%] lg:w-[76%] mx-auto h-[70vh] md:h-screen bg-[url('/aboutBg.png')] bg-cover bg-no-repeat bg-center my-10 md:my-[150px] font-lora rounded-sm shadow-lg"
@@ -24,6 +40,9 @@ const AboutSection = () => {
           </motion.h2>
         ))}
       </div>
+    </div>
+      <Button className='text-lg shadow-xl  mx-auto w-[200px] mt-[-130px] bg-[#34B0CA] hover:bg-[#34B0CA]/50 hover:text-gray-600' onClick={handleButtonClick} >Ecrire une étreinte</Button>
+
     </div>
   );
 };

@@ -36,7 +36,8 @@ const PostCreateForm = () => {
         formData.append("file", headerImage);
         formData.append("upload_preset", "my_preset"); 
 
-        const response = await fetch(`https://api.cloudinary.com/v1_1/dhp8teilh/image/upload`, {
+        const response = await fetch("https://api.cloudinary.com/v1_1/dhp8teilh/image/upload", {
+
           method: "POST",
           body: formData,
         });
@@ -51,6 +52,7 @@ const PostCreateForm = () => {
         imageUrl: imageUrl,
         createdAt: new Date(),
         authorName: userInfo?.username || "Auteur inconnu", 
+        likes: []
       });
 
       setTitle("");
@@ -67,7 +69,7 @@ const PostCreateForm = () => {
 
   return (
     <div className="relative mb-5 w-full max-w-3xl mx-auto">
-      <Button onClick={() => setIsFormVisible(!isFormVisible)} className="flex items-center space-x-2">
+      <Button onClick={() => setIsFormVisible(!isFormVisible)} className="flex items-center ml-16 space-x-2 lg:ml-10">
         <Plus className="w-5 h-5" />
         <span>Créer un texte</span>
       </Button>

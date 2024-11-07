@@ -121,7 +121,7 @@ const RegisterScreen = () => {
 
                     <Button
                         type="submit"
-                        className="mt-3 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
+                        className="mt-3 w-full bg-[#34B0CA] text-white py-2 text-md px-4 rounded-md hover:bg-[#34B0CA]/70 hover:text-gray-600 disabled:opacity-50"
                         disabled={loading} 
                     >
                         S&apos;inscrire
@@ -130,7 +130,7 @@ const RegisterScreen = () => {
 
                 <div className="py-3 text-center">
                     <p>
-                        Vous avez déjà un compte ? <Link to="/login" className="text-blue-500 hover:underline">Se connecter</Link>
+                        Vous avez déjà un compte ? <Link to="/login" className="text-[#34B0CA] hover:underline">Se connecter</Link>
                     </p>
                 </div>
 

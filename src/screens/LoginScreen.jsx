@@ -98,7 +98,7 @@ const LoginScreen = () => {
           {loading && <Spinner />}
           <Button
             type="submit"
-            className="mt-3 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
+            className="mt-3 w-full bg-[#34B0CA] text-white text-md py-2 px-4 rounded-md hover:bg-[#34B0CA]/70 disabled:opacity-50 hover:text-gray-600"
           >
             Se connecter
           </Button>
@@ -106,7 +106,7 @@ const LoginScreen = () => {
 
         <div className="py-3 text-center">
           <p>
-            Vous êtes nouveau ici ? <Link to="/register" className="text-blue-500 hover:underline">S&rsquo;inscrire</Link>
+            Vous êtes nouveau ici ? <Link to="/register" className="text-[#34B0CA] hover:underline">S&rsquo;inscrire</Link>
           </p>
         </div>
 

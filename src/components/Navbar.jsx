@@ -48,7 +48,7 @@ const Navbar = () => {
     
 
   return (
-    <nav className={`fixed top-0 text-xl left-0 w-full z-50 text-white transition-colors duration-700 ${navbarBg ? 'bg-slate-400/60 shadow-md' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 text-xl left-0 w-full z-50 text-white transition-colors duration-700 ${navbarBg ? 'bg-slate-600/70 shadow-md' : 'bg-transparent'}`}>
     <div className="container mx-auto px-6 py-1 text-shadow flex justify-between items-center font-raleway">
         {/* Logo */}
         <div className="text-lg font-bold relative flex items-center gap-4">
@@ -65,11 +65,11 @@ const Navbar = () => {
             <li> <Link 
     to={{ pathname: "/" }} 
     state={{ scrollToEtreintes: true }}
-    className="relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full"
+    className="relative text-2xl text-[#34B0CA] before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-[#34B0CA]/70 before:transition-all before:duration-700 hover:before:w-full"
   >
     Étreintes
   </Link></li>
-            <li><Link to="/" className="relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">Inspirations</Link></li>
+            <li><Link to="/" className="relative text-2xl text-[#34B0CA] before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-[#34B0CA]/70 before:transition-all before:duration-700 hover:before:w-full">Inspirations</Link></li>
             {userInfo && (
             <>
               <li>
@@ -94,17 +94,17 @@ const Navbar = () => {
                         variant="ghost"
                         onClick={handleLogout}
                     >
-                        Déconnexion
+                        déconnexion
                     </Button>
                     
                 </div>
             ) : (
                 <Button
                     onClick={handleLoginClick}
-                    className=" px-4 py-2 text-xl rounded-md hover:bg-white transition duration-800 hover:text-black"
+                    className=" px-4 py-2 text-xl rounded-md bg-[#34B0CA] hover:bg-[#34B0CA]/70 transition duration-800 hover:text-gray-600"
                     
                 >
-                    Connexion
+                    connexion
                 </Button>
             )}
         </div>

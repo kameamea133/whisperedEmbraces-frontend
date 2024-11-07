@@ -2,16 +2,19 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-6 ">
+    <footer className="bg-gray-900 text-white py-6">
       <div className="container mx-auto text-center font-bold">
         
-        <ul className="flex justify-center space-x-6 mb-4 text-sm">
+        <ul className="flex flex-col md:flex-row justify-center md:space-x-6 space-y-4 md:space-y-0 mb-4 text-sm">
           <li>
-            <Link to="/" className="relative text-lg text-gray-400 hover:text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">
+            <Link 
+              to="/" 
+              className="relative text-lg text-gray-400 hover:text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full"
+            >
               Accueil
             </Link>
           </li>
-         
+          
           <li>
             <Link
               to="/"
@@ -25,8 +28,11 @@ const Footer = () => {
           </li>
           
           <li>
-            <Link to="/conditions" className="text-gray-400 text-lg hover:text-white">
-              Conditions d&lsquo;utilisation
+            <Link 
+              to="/conditions" 
+              className="text-gray-400 text-lg hover:text-white"
+            >
+              Conditions d’utilisation
             </Link>
           </li>
           

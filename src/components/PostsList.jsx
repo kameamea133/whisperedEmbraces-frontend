@@ -104,7 +104,7 @@ const PostsList = () => {
   
   
   return (
-    <div className="font-lora w-[70%] space-y-6 mx-auto h-[600px]">
+    <div className="font-lora w-[70%] space-y-6 mx-auto min-h-[400px]">
       {posts.map((post) => (
         <div key={post.id} className="bg-white h-full rounded-md shadow-md p-4 mb-6 md:mb-4">
           {editMode === post.id ? (
