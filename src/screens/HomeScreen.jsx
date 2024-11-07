@@ -1,43 +1,45 @@
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
-import { doc, collection, getDocs, getDoc } from "firebase/firestore";
+import { useLocation } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import PostGrid from "@/components/PostGrid";
+
 
 const HomeScreen = () => {
-  // const { data: posts } = useGetPostsQuery();
-
+  const [posts, setPosts] = useState([]);
   
-  const docRef = doc(db, "users", "WJyo7GRElpckPTsbcavf");
+  const location = useLocation();
 
-  
-  const fetchTestData = async () => {
-    const querySnapshot = await getDocs(collection(db, "test"));
-    querySnapshot.forEach((doc) => {
-      console.log("Document récupéré :", doc.id, "=>", doc.data());
-    });
-  };
-
- 
-  const fetchData = async () => {
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log("Document data trouvé");
-    } else {
-      console.log("Aucun document trouvé !");
+  useEffect(() => {
+    if (location.state?.scrollToAbout) {
+      document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+    } else if (location.state?.scrollToEtreintes) {
+      document.getElementById("etreintes-section")?.scrollIntoView({ behavior: "smooth" });
     }
+
+
+  }, [location]);
+  const fetchPosts = async () => {
+    const postsCollection = collection(db, "posts");
+    const postsSnapshot = await getDocs(postsCollection);
+    const postsList = postsSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setPosts(postsList); 
   };
 
   useEffect(() => {
-    fetchData();
-    fetchTestData();
+    fetchPosts();
   }, []);
 
   return (
     <div className="bg-[#E2DFD7]/70">
       <Hero />
       <AboutSection />
-      {/* <PostGrid posts={posts} /> */}
+      <PostGrid posts={posts} />
     </div>
   );
 };

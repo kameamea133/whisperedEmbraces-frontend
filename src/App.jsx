@@ -1,16 +1,17 @@
 import Navbar from './components/Navbar'
 import { Outlet } from 'react-router-dom'
 import BackgroundMusic from './components/BackgroundMusic'
-
+import Footer from './components/footer'
 import './App.css'
 
 
 function App() {
   return (
-    <div className="bg-[#E2DFD7]/70">
+    <div className="bg-[#C8C4B9]/90">
      <Navbar />
      <BackgroundMusic />
      <Outlet /> 
+     <Footer />
     </div>
   )
 }

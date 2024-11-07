@@ -26,7 +26,7 @@ const Hero = () => {
       {/* dark overlay */}
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
 
-      <div className="absolute bottom-[50px] md:bottom-[100px] lg:bottom-[200px] left-4 md:left-8 lg:left-10 z-20 text-white text-left">
+      <div className="absolute bottom-[50px] md:bottom-[100px] lg:bottom-[100px] left-4 md:left-8 lg:left-10 z-20 text-white text-left">
         <motion.h1
           className="text-[100px] md:text-[80px] lg:text-[200px] font-whisper leading-tight md:leading-[1] text-shadow"
           initial={{ opacity: 0 }}

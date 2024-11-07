@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-
 import { useNavigate } from "react-router-dom";
 
 const PostGrid = ({ posts }) => {
   const navigate = useNavigate();
+  const defaultImageUrl = "/imgDefault.jpg"; 
 
   const stripHtml = (html) => {
     const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -11,17 +11,17 @@ const PostGrid = ({ posts }) => {
   };
 
   return (
-    <div id="etreintes-section" className="w-[98%] mx-auto h-screen p-4 my-5">
-      <h1 className="text-7xl mt-5 font-thin mb-4 text-center font-whisper text-shadow">Les étreintes</h1>
+    <div id="etreintes-section" className="w-[78%] mx-auto h-screen p-4 my-5">
+      <h1 className="text-7xl my-[70px] font-thin text-center font-whisper text-shadow">Les étreintes</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {posts?.map((post) => (
           <div 
-            key={post._id} 
+            key={post.id} 
             className="bg-white p-4 rounded-sm shadow-md shadow-teal-900/30 hover:shadow-xl transition-shadow cursor-pointer"
-            onClick={() => navigate(`/post/${post._id}`)} 
+            onClick={() => navigate(`/post/${post.id}`)} 
           >
             <img 
-              src={post.headerImage} 
+              src={post.imageUrl || defaultImageUrl} 
               alt={post.title} 
               className="w-full h-48 object-cover rounded-md mb-4"
             />

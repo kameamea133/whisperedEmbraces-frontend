@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import FormContainer from '@/components/FormContainer';
 import { Button } from '@/components/ui/button';
 import Spinner from '@/components/Spinner';
-import { useUpdateProfileMutation } from '@/slices/usersApiSlice';
+
 import SoftNotification from '@/components/SoftNotification';
 import { Eye, EyeOff } from 'lucide-react';
+import { db, auth } from '@/firebaseConfig';
+import { doc, updateDoc } from 'firebase/firestore';
+import { updateEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 
 const ProfileScreen = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -18,14 +21,9 @@ const ProfileScreen = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [notification, setNotification] = useState({ show: false, message: '', type: '' });
-  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (userInfo) {
-      setUsername(userInfo.username);
-      setEmail(userInfo.email);
-    }
-  }, [userInfo]);
+  const currentUser = auth.currentUser;
 
   const togglePasswordVisibility = (setter) => {
     setter((prev) => !prev);
@@ -33,17 +31,40 @@ const ProfileScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (newPassword !== confirmNewPassword) {
-      setNotification({ show: true, message: 'Les nouveaux mots de passe ne correspondent pas', type: 'error' });
-      return;
-    }
+    setLoading(true);
+
     try {
-      // eslint-disable-next-line no-unused-vars
-      const updatedUser = await updateProfile({ username, email, password, newPassword }).unwrap();
+      
+      if (password) {
+        const credential = EmailAuthProvider.credential(currentUser.email, password);
+        await reauthenticateWithCredential(currentUser, credential);
+      }
+
+      
+      if (email !== currentUser.email) {
+        await updateEmail(currentUser, email);
+      }
+
+     
+      if (newPassword && newPassword === confirmNewPassword) {
+        await updatePassword(currentUser, newPassword);
+      } else if (newPassword !== confirmNewPassword) {
+        setNotification({ show: true, message: 'Les nouveaux mots de passe ne correspondent pas', type: 'error' });
+        setLoading(false);
+        return;
+      }
+
+      
+      if (username !== userInfo?.username) {
+        const userDocRef = doc(db, "users", currentUser.uid); 
+        await updateDoc(userDocRef, { username });
+      }
+
       setNotification({ show: true, message: 'Profil mis à jour avec succès', type: 'success' });
-      // console.log('Profil mis à jour :', updatedUser);
     } catch (err) {
-      setNotification({ show: true, message: err.data?.message || 'Erreur lors de la mise à jour', type: 'error' });
+      setNotification({ show: true, message: err.message || 'Erreur lors de la mise à jour', type: 'error' });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -147,7 +168,7 @@ const ProfileScreen = () => {
             </button>
           </div>
 
-          {isLoading && <Spinner />}
+          {loading && <Spinner />}
 
           <Button
             type="submit"

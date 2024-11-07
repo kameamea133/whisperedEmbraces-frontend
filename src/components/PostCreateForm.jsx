@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { useCreatePostMutation } from "../slices/postsApiSlice";
+import { useSelector } from "react-redux"; 
+import { db } from "@/firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
 import { Button } from "./ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
@@ -12,7 +14,11 @@ const PostCreateForm = () => {
   const [headerImage, setHeaderImage] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [createPost, { isLoading, isError, error }] = useCreatePostMutation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  
+  const userInfo = useSelector((state) => state.auth.userInfo); 
 
   const handleImageChange = (e) => {
     setHeaderImage(e.target.files[0]);
@@ -20,20 +26,42 @@ const PostCreateForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-    if (headerImage) formData.append("headerImage", headerImage);
+    setIsLoading(true);
 
     try {
-      await createPost(formData).unwrap();
+      let imageUrl = "";
+      
+      if (headerImage) {
+        const formData = new FormData();
+        formData.append("file", headerImage);
+        formData.append("upload_preset", "my_preset"); 
+
+        const response = await fetch(`https://api.cloudinary.com/v1_1/dhp8teilh/image/upload`, {
+          method: "POST",
+          body: formData,
+        });
+        const data = await response.json();
+        imageUrl = data.secure_url;
+      }
+
+      
+      await addDoc(collection(db, "posts"), {
+        title: title,
+        content: content,
+        imageUrl: imageUrl,
+        createdAt: new Date(),
+        authorName: userInfo?.username || "Auteur inconnu", 
+      });
+
       setTitle("");
       setContent("");
       setHeaderImage(null);
       setIsFormVisible(false);
     } catch (err) {
       console.error("Erreur de création du texte:", err);
+      setError("Une erreur est survenue lors de la création du texte.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,12 +100,12 @@ const PostCreateForm = () => {
                 <input type="file" onChange={handleImageChange} className="block w-full" />
               </div>
               <Button type="submit" disabled={isLoading} className="mr-2">
-                Soumettre
+                {isLoading ? "Envoi en cours..." : "Soumettre"}
               </Button>
               <Button type="button" onClick={() => setShowPreview(!showPreview)}>
                 {showPreview ? "Masquer la Prévisualisation" : "Prévisualiser"}
               </Button>
-              {isError && <p className="text-red-500">{error?.data?.message}</p>}
+              {error && <p className="text-red-500">{error}</p>}
             </form>
 
             {showPreview && (

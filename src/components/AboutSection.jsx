@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 const AboutSection = () => {
   return (
     <div 
+    id="about"
       className="flex items-center justify-center w-[90%] lg:w-[76%] mx-auto h-[70vh] md:h-screen bg-[url('/aboutBg.png')] bg-cover bg-no-repeat bg-center my-10 md:my-[150px] font-lora rounded-sm shadow-lg"
     >
       <div className="w-full md:w-[80%] lg:w-[60%] flex flex-wrap gap-4 md:gap-8 text-base md:text-lg lg:text-xl px-2 py-4 md:p-6 lg:p-8 rounded-lg ">
@@ -16,8 +17,8 @@ const AboutSection = () => {
             key={index}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 1, delay: index * 0.7 }}
-            viewport={{ once: false, amount: 1 }}
+            transition={{ duration: 1, delay: index * 0.4 }}
+            viewport={{ once: true, amount: 0.5 }}
           >
             {text}
           </motion.h2>

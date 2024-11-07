@@ -48,7 +48,7 @@ const Navbar = () => {
     
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 text-white transition-colors duration-700 ${navbarBg ? 'bg-slate-400/60 shadow-md' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 text-xl left-0 w-full z-50 text-white transition-colors duration-700 ${navbarBg ? 'bg-slate-400/60 shadow-md' : 'bg-transparent'}`}>
     <div className="container mx-auto px-6 py-1 text-shadow flex justify-between items-center font-raleway">
         {/* Logo */}
         <div className="text-lg font-bold relative flex items-center gap-4">
@@ -61,10 +61,14 @@ const Navbar = () => {
         </div>
 
         {/* Menu Desktop */}
-        <ul className="hidden md:flex space-x-8 text-lg">
-            <li><Link to="/" className="relative  before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full" onClick={() => {
-      document.getElementById('etreintes-section')?.scrollIntoView({ behavior: 'smooth' });
-    }} >Étreintes</Link></li>
+        <ul className="hidden md:flex space-x-8">
+            <li> <Link 
+    to={{ pathname: "/" }} 
+    state={{ scrollToEtreintes: true }}
+    className="relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full"
+  >
+    Étreintes
+  </Link></li>
             <li><Link to="/" className="relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">Inspirations</Link></li>
             {userInfo && (
             <>
@@ -97,7 +101,7 @@ const Navbar = () => {
             ) : (
                 <Button
                     onClick={handleLoginClick}
-                    className=" px-4 py-2  rounded-md hover:bg-white transition duration-800 hover:text-black"
+                    className=" px-4 py-2 text-xl rounded-md hover:bg-white transition duration-800 hover:text-black"
                     
                 >
                     Connexion
@@ -139,7 +143,7 @@ const Navbar = () => {
             Mon profil
           </Link>
           <button
-            className="w-full  hover:text-gray-300 text-2xl mt-4"
+            className="w-full text-center hover:text-gray-300 text-2xl mt-4"
             onClick={() => {
               handleLogout();
               setMenuOpen(false);
@@ -150,7 +154,7 @@ const Navbar = () => {
         </>
       ) : (
         <button
-          className="w-full text-left hover:text-gray-300 text-2xl mt-4"
+          className="w-full text-center hover:text-gray-300 text-2xl mt-4"
           onClick={() => {
             handleLoginClick();
             setMenuOpen(false);

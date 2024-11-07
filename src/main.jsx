@@ -7,6 +7,8 @@ import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import PostsScreen from './screens/PostsScreen'
 import ArticleScreen from './screens/ArticleScreen'
+import Conditions from './screens/conditionsScreen'
+import PrivacyPolicy from './screens/PrivacyPolicy'
 import store from './store'
 import PrivateRoute from './components/PrivateRoute'
 import { Provider } from 'react-redux'
@@ -23,6 +25,8 @@ const router = createBrowserRouter(
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
       <Route path='/post/:id' element={<ArticleScreen />} />
+      <Route path='/conditions' element={<Conditions />} />
+      <Route path='/privacy' element={<PrivacyPolicy />} />
     {/* Private Routes */}
       <Route element={<PrivateRoute />}>
       <Route path='/profile' element={<ProfileScreen />} />
