@@ -12,7 +12,7 @@ const PostGrid = ({ posts }) => {
   };
 
   return (
-    <div id="etreintes-section" className="w-[78%] mx-auto h-screen p-4 my-5">
+    <div id="etreintes-section" className="w-[78%] mx-auto min-h-screen p-4 my-5">
       <h1 className="text-7xl my-[70px] font-thin text-center font-whisper text-shadow">Les étreintes</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {posts?.map((post) => (

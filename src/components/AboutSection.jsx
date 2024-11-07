@@ -22,7 +22,7 @@ const AboutSection = () => {
     id="about"
       className="flex items-center justify-center w-[90%] lg:w-[76%] mx-auto h-[70vh] md:h-screen bg-[url('/aboutBg.png')] bg-cover bg-no-repeat bg-center my-10 md:my-[150px] font-lora rounded-sm shadow-lg"
     >
-      <div className="w-full md:w-[80%] lg:w-[60%] flex flex-wrap gap-4 md:gap-8 text-base md:text-lg lg:text-xl px-2 py-4 md:p-6 lg:p-8 rounded-lg ">
+      <div className="w-full md:w-[80%] lg:w-[60%] flex flex-wrap gap-4 md:gap-8 text-[14px] md:text-lg lg:text-xl px-2 py-4 md:p-6 lg:p-8 rounded-lg ">
         {[
           "...chaque mot est un soupir venu du cœur, murmurant la vérité des émotions. Ici, les écrits deviennent l’écho de nos songes, l’expression de nos joies secrètes et de nos peines muettes, tissées dans l’étoffe même de l’existence.",
           "Sur ces pages, chaque poème, chaque pensée, est une offrande : un fragment de l’âme partagé dans l’espérance de toucher celle d’un autre. C’est un espace où l’écriture est un chant, une prière murmurée à l’univers, une étreinte entre l’éphémère et l’éternité.",
@@ -41,7 +41,7 @@ const AboutSection = () => {
         ))}
       </div>
     </div>
-      <Button className='text-lg shadow-xl  mx-auto w-[200px] mt-[-130px] bg-[#34B0CA] hover:bg-[#34B0CA]/50 hover:text-gray-600' onClick={handleButtonClick} >Ecrire une étreinte</Button>
+      <Button className='text-md lg:text-lg shadow-xl  mx-auto w-[200px] mt-[-30px] lg:mt-[-130px] bg-[#34B0CA] hover:bg-[#34B0CA]/50 hover:text-gray-600' onClick={handleButtonClick} >Ecrire une étreinte</Button>
 
     </div>
   );

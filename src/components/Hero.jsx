@@ -28,7 +28,7 @@ const Hero = () => {
 
       <div className="absolute bottom-[50px] md:bottom-[100px] lg:bottom-[100px] left-4 md:left-8 lg:left-10 z-20 text-white text-left">
         <motion.h1
-          className="text-[100px] md:text-[80px] lg:text-[200px] font-whisper leading-tight md:leading-[1] text-shadow"
+          className="text-[5rem] md:text-[80px] lg:text-[200px] font-whisper leading-tight md:leading-[1] text-shadow"
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 5, delay: 1.5 }}
@@ -36,7 +36,7 @@ const Hero = () => {
           Étreintes
         </motion.h1>
         <motion.h1
-          className="text-[100px] md:text-[80px] lg:text-[200px] font-whisper leading-tight md:leading-[1] ml-2 md:ml-4 lg:ml-10 text-shadow"
+          className="text-[5rem] md:text-[80px] lg:text-[200px] font-whisper leading-tight md:leading-[1] ml-2 md:ml-4 lg:ml-10 text-shadow"
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 5, delay: 2.5 }}
