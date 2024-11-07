@@ -6,6 +6,7 @@ import './App.css'
 
 
 function App() {
+  
   return (
     <div className="bg-[#C8C4B9]/90">
      <Navbar />
