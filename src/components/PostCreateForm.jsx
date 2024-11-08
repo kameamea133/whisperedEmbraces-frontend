@@ -96,7 +96,7 @@ const PostCreateForm = () => {
               </div>
               <div>
                 <label>Contenu</label>
-                <ReactQuill value={content} onChange={setContent} className="h-50" />
+                <ReactQuill value={content} onChange={setContent} className="h-50 break-words" />
               </div>
               <div>
                 <label>Image d’en-tête (optionnelle)</label>

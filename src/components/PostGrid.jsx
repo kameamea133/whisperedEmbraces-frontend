@@ -27,7 +27,7 @@ const PostGrid = ({ posts }) => {
               className="w-full h-48 object-cover rounded-md mb-4"
             />
             <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-            <p className="text-gray-700">{stripHtml(post.content).slice(0, 50)}...</p>
+            <p className="text-gray-700 break-words">{stripHtml(post.content).slice(0, 50)}...</p>
             <div className="flex items-center mt-2">
               <Feather className="w-5 h-5 text-[#34B0CA]" />
               <span className="ml-2 text-gray-500">{post.likes?.length || 0} Résonance(s)</span>

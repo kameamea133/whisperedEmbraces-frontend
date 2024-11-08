@@ -149,7 +149,7 @@ const PostsList = () => {
                 />
               )}
               <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-              <div dangerouslySetInnerHTML={{ __html: post.content }} className="text-base" />
+              <div dangerouslySetInnerHTML={{ __html: post.content }} className="text-base break-words" />
               <div className="flex space-x-2 mt-4 w-full">
                 <Button onClick={() => handleEdit(post)}>Modifier</Button>
                 <Button onClick={() => handleDelete(post.id)} variant="destructive">

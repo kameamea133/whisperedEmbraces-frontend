@@ -67,7 +67,7 @@ const HomeScreen = () => {
 
 
   return (
-    <div className="bg-[#E2DFD7]/70 pb-11  lg:pb-0">
+    <div className="bg-[#E2DFD7]/70 pb-11 lg:pb-0">
       <Hero />
       <AboutSection />
       <PostGrid posts={posts} onLike={handleLike} userInfo={userInfo} />
