@@ -73,12 +73,12 @@ const Navbar = () => {
             {userInfo && (
             <>
               <li>
-                <Link to="/posts" className="relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">
+                <Link to="/posts" className="relative text-2xl text-[#34B0CA] before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-[#34B0CA]/70 before:transition-all before:duration-700 hover:before:w-full">
                   Mes textes
                 </Link>
               </li>
               <li>
-              <Link to="/profile" className="relative  before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">Mon profil</Link>
+              <Link to="/profile" className="relative text-2xl text-[#34B0CA] before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-[#34B0CA]/70 before:transition-all before:duration-700 hover:before:w-full">Mon profil</Link>
               </li>
             </>
           )}
@@ -88,9 +88,9 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-4">
             {userInfo ? (
                 <div className="flex items-center gap-4">
-                    <p className="text-lg">Bonjour {userInfo.username}</p>
+                    <p className="text-2xl">Bonjour {userInfo.username}</p>
                     <Button
-                        className="text-shadow text-lg px-4 py-2 rounded-md hover:bg-white transition duration-300"
+                        className="text-shadow text-2xl px-4 py-2 rounded-md hover:bg-white transition duration-300"
                         variant="ghost"
                         onClick={handleLogout}
                     >
@@ -128,6 +128,8 @@ const Navbar = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
+
+<p className="text-2xl mb-9">Bonjour {userInfo.username}</p>
       <Link to="/" className="block hover:text-gray-300 text-2xl" onClick={() => setMenuOpen(false)}>
         Étreintes
       </Link>
