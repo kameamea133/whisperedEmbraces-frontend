@@ -51,6 +51,7 @@ const PostCreateForm = () => {
         content: content,
         imageUrl: imageUrl,
         createdAt: new Date(),
+        authorId: userInfo?.uid,
         authorName: userInfo?.username || "Auteur inconnu", 
         likes: []
       });

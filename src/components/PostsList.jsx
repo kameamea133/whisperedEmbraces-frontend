@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { db } from "@/firebaseConfig";
 import { collection, getDocs, getDoc, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { useSelector } from "react-redux";
 import { Button } from "./ui/button";
 import ReactQuill from "react-quill";
 
@@ -11,11 +12,14 @@ const PostsList = () => {
   const [editContent, setEditContent] = useState("");
   const [editImage, setEditImage] = useState(null);
 
+  const userInfo = useSelector((state) => state.auth.userInfo);
+
   useEffect(() => {
     const fetchPosts = async () => {
       const postsCollection = collection(db, "posts");
       const postsSnapshot = await getDocs(postsCollection);
-      const postsList = postsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      const postsList = postsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      .filter((post) => post.authorId === userInfo?.uid);
       setPosts(postsList);
     };
 
