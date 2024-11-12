@@ -129,7 +129,8 @@ const Navbar = () => {
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
 
-<p className="text-2xl mb-9 break-words">Bonjour {userInfo.username}</p>
+
+<p className="text-2xl mb-9 break-words">{userInfo ? `Bonjour ${userInfo.username}` : ``}</p>
       <Link to="/" className="block hover:text-gray-300 text-2xl" onClick={() => setMenuOpen(false)}>
         Étreintes
       </Link>
