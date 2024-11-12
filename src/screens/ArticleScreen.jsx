@@ -20,6 +20,9 @@ const ArticleScreen = () => {
   const [error, setError] = useState(null);
   const [likedByUser, setLikedByUser] = useState(false);
   const [showPopover, setShowPopover] = useState(false); 
+  const [newComment, setNewComment] = useState("");
+  const [username, setUsername] = useState(userInfo?.username || "");
+  const [comments, setComments] = useState([]);
 
   const defaultImageUrl = "/imgDefault.jpg";
 
@@ -32,6 +35,7 @@ const ArticleScreen = () => {
         if (docSnap.exists()) {
           const postData = docSnap.data();
           setPost({ ...postData, id: docRef.id });
+          setComments(postData.comments || []);
 
           if (postData.likes?.includes(userInfo?.uid)) {
             setLikedByUser(true);
@@ -48,6 +52,30 @@ const ArticleScreen = () => {
 
     fetchPost();
   }, [id, userInfo?.uid]);
+
+  const handleAddComment = async (e) => {
+    e.preventDefault();
+    if (!newComment.trim()) return;
+
+    const comment = {
+      username: username || "Anonyme",
+      content: newComment,
+      isApproved: false, // Doit être approuvé manuellement dans Firestore
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      const docRef = doc(db, "posts", id);
+      await updateDoc(docRef, {
+        comments: arrayUnion(comment),
+      });
+      setNewComment("");
+      setUsername(userInfo?.username || ""); // Réinitialiser le champ
+      alert("Votre commentaire a été soumis pour approbation.");
+    } catch (error) {
+      console.error("Erreur lors de l'ajout du commentaire :", error);
+    }
+  };
 
   const handleLikeToggle = async () => {
     if (!userInfo) {
@@ -150,6 +178,38 @@ const ArticleScreen = () => {
           Retour
         </button>
       </div>
+
+      <form onSubmit={handleAddComment} className="mt-6 space-y-4">
+          <input
+            type="text"
+            className="w-full p-2 border rounded"
+            placeholder="Entrez votre nom (optionnel)"
+            value={userInfo?.username || username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={!!userInfo?.username}
+          />
+          <textarea
+            className="w-full p-2 border rounded"
+            rows="3"
+            placeholder="Laisser un commentaire..."
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          ></textarea>
+          <button type="submit" className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+            Ajouter un commentaire
+          </button>
+        </form>
+
+        
+        <div className="mt-8">
+          <h2 className="text-xl font-bold mb-4">Commentaires :</h2>
+          {comments.filter(comment => comment.isApproved).map((comment, index) => (
+            <div key={index} className="bg-gray-100 p-4 rounded mb-4">
+              <p className="text-sm text-gray-700">Par {comment.username}</p>
+              <p>{comment.content}</p>
+            </div>
+          ))}
+        </div>
     </div>
   );
 };
