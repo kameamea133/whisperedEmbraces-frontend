@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
+import RandomQuote from "@/components/RandomQuote";
 import { useLocation } from "react-router-dom";
 import { collection, getDocs, doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
@@ -71,6 +72,7 @@ const HomeScreen = () => {
       <Hero />
       <AboutSection />
       <PostGrid posts={posts} onLike={handleLike} userInfo={userInfo} />
+      <RandomQuote />
     </div>
   );
 };

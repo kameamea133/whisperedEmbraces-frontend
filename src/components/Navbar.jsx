@@ -61,7 +61,7 @@ const Navbar = () => {
         </div>
 
         {/* Menu Desktop */}
-        <ul className="hidden md:flex space-x-8">
+        <ul className="hidden md:flex space-x-8 ml-[150px]">
             <li> <Link 
     to={{ pathname: "/" }} 
     state={{ scrollToEtreintes: true }}
@@ -88,7 +88,7 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-4">
             {userInfo ? (
                 <div className="flex items-center gap-4">
-                    <p className="text-2xl">Bonjour {userInfo.username}</p>
+                    <p className="text-2xl break-words">Bonjour {userInfo.username}</p>
                     <Button
                         className="text-shadow text-2xl px-4 py-2 rounded-md hover:bg-white transition duration-300"
                         variant="ghost"
@@ -129,7 +129,7 @@ const Navbar = () => {
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
 
-<p className="text-2xl mb-9">Bonjour {userInfo.username}</p>
+<p className="text-2xl mb-9 break-words">Bonjour {userInfo.username}</p>
       <Link to="/" className="block hover:text-gray-300 text-2xl" onClick={() => setMenuOpen(false)}>
         Étreintes
       </Link>
