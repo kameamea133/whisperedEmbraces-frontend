@@ -10,6 +10,7 @@ import {
   PopoverTrigger,
 } from "../components/ui/popover";
 
+
 const ArticleScreen = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const ArticleScreen = () => {
     const comment = {
       username: username || "Anonyme",
       content: newComment,
-      isApproved: false, // Doit être approuvé manuellement dans Firestore
+      isApproved: false, 
       createdAt: new Date().toISOString(),
     };
 
@@ -70,7 +71,7 @@ const ArticleScreen = () => {
         comments: arrayUnion(comment),
       });
       setNewComment("");
-      setUsername(userInfo?.username || ""); // Réinitialiser le champ
+      setUsername(userInfo?.username || ""); 
       alert("Votre commentaire a été soumis pour approbation.");
     } catch (error) {
       console.error("Erreur lors de l'ajout du commentaire :", error);
@@ -138,7 +139,7 @@ const ArticleScreen = () => {
           dangerouslySetInnerHTML={{ __html: post.content }}
         ></div>
 
-        {/* Section Like avec Popover */}
+       
         <Popover open={showPopover} onOpenChange={setShowPopover}>
   <PopoverTrigger asChild className="relative">
     <div className="relative flex items-center mt-4">
@@ -179,7 +180,7 @@ const ArticleScreen = () => {
         </button>
       </div>
 
-      <form onSubmit={handleAddComment} className="mt-6 space-y-4">
+      <form onSubmit={handleAddComment} className="flex flex-col gap-6 p-4 md:p-8 w-full md:w-[80%] lg:w-[70%] xl:w-[60%] mx-auto font-lora rounded-md shadow-lg mt-10 mb-10">
           <input
             type="text"
             className="w-full p-2 border rounded"
@@ -201,7 +202,7 @@ const ArticleScreen = () => {
         </form>
 
         
-        <div className="mt-8">
+        <div className="flex flex-col gap-6 p-4 md:p-8 w-full md:w-[80%] lg:w-[70%] xl:w-[60%] mx-auto font-lora rounded-md shadow-lg bg-[url('/paperBg3.png')] bg-cover bg-no-repeat bg-center mt-10 mb-10">
           <h2 className="text-xl font-bold mb-4">Commentaires :</h2>
           {comments.filter(comment => comment.isApproved).map((comment, index) => (
             <div key={index} className="bg-gray-100 p-4 rounded mb-4">

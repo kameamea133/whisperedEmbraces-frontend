@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import { Mail } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-6">
+    <footer className="bg-gray-900 lg:h-[200px] text-white lg:pt-[70px]">
       <div className="container mx-auto text-center font-bold">
         
         <ul className="flex flex-col md:flex-row justify-center md:space-x-6 space-y-4 md:space-y-0 mb-4 text-sm">
@@ -42,6 +43,14 @@ const Footer = () => {
               className="relative text-lg text-gray-400 hover:text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full"
             >
               Politique de confidentialité
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/contact" 
+              className="relative text-lg text-gray-400 hover:text-white"
+            >
+             <Mail className="inline-block " /> 
             </Link>
           </li>
         </ul>

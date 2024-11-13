@@ -53,7 +53,8 @@ const LoginScreen = () => {
           throw new Error("Les informations de l'utilisateur sont introuvables.");
         }
       } catch (err) {
-        setError(err.message);
+        setError("Veuillez remplir tous les champs.");
+        console.log(err.message);
       } finally {
         setLoading(false);
       }
@@ -98,7 +99,7 @@ const LoginScreen = () => {
           {loading && <Spinner />}
           <Button
             type="submit"
-            className="mt-3 w-full bg-[#34B0CA] text-white text-md py-2 px-4 rounded-md hover:bg-[#34B0CA]/70 disabled:opacity-50 hover:text-gray-600"
+            className="mt-3 w-full bg-gray-900 text-white text-md py-2 px-4 rounded-md hover:bg-gray-900/80 transition duration-1000 hover:text-gray-100"
           >
             Se connecter
           </Button>
@@ -114,6 +115,7 @@ const LoginScreen = () => {
           <SoftNotification message={error} onClose={closeNotification} />
         )}
       </FormContainer>
+      
     </>
   );
 };

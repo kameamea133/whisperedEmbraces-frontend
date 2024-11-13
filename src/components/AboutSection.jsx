@@ -17,7 +17,8 @@ const AboutSection = () => {
 
 
   return (
-    <div className='flex flex-col '>
+    <div className='flex flex-col'>
+    
     <div 
     id="about"
       className="flex items-center justify-center w-[90%] lg:w-[76%] mx-auto  md:h-screen bg-[url('/aboutBg.png')] bg-cover bg-no-repeat bg-center my-10 md:my-[150px] font-lora rounded-sm shadow-lg p-4"
@@ -41,7 +42,7 @@ const AboutSection = () => {
         ))}
       </div>
     </div>
-      <Button className='text-md lg:text-lg shadow-xl  mx-auto w-[200px] mt-[-30px] lg:mt-[-130px] bg-[#34B0CA] hover:bg-[#34B0CA]/50 hover:text-gray-600' onClick={handleButtonClick} >Ecrire une étreinte</Button>
+      <Button className='text-md lg:text-lg shadow-xl  mx-auto w-[200px] mt-[-30px] lg:mt-[-130px] bg-gray-900 hover:bg-gray-900/80 hover:text-gray-100 transition duration-1000' onClick={handleButtonClick} >Ecrire une étreinte</Button>
 
     </div>
   );

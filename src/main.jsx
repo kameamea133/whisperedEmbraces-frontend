@@ -8,6 +8,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import PostsScreen from './screens/PostsScreen';
 import ArticleScreen from './screens/ArticleScreen';
 import Conditions from './screens/conditionsScreen';
+import ContactScreen from './screens/ContactScreen';
 import PrivacyPolicy from './screens/PrivacyPolicy';
 import store from './store';
 import PrivateRoute from './components/PrivateRoute';
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="/post/:id" element={<ArticleScreen />} />
       <Route path="/conditions" element={<Conditions />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/contact" element={<ContactScreen />} />
       {/* Private Routes */}
       <Route element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />

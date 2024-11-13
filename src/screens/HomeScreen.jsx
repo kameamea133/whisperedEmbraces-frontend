@@ -9,6 +9,7 @@ import PostGrid from "@/components/PostGrid";
 import { useSelector } from "react-redux";
 
 
+
 const HomeScreen = () => {
   const [posts, setPosts] = useState([]);
   const userInfo = useSelector((state) => state.auth.userInfo);
@@ -68,7 +69,7 @@ const HomeScreen = () => {
 
 
   return (
-    <div className="bg-[#E2DFD7]/70 pb-11 lg:pb-0">
+    <div className="bg-[#E2DFD7]/70 lg:pb-11 pb-0">
       <Hero />
       <AboutSection />
       <PostGrid posts={posts} onLike={handleLike} userInfo={userInfo} />

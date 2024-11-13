@@ -121,7 +121,7 @@ const RegisterScreen = () => {
 
                     <Button
                         type="submit"
-                        className="mt-3 w-full bg-[#34B0CA] text-white py-2 text-md px-4 rounded-md hover:bg-[#34B0CA]/70 hover:text-gray-600 disabled:opacity-50"
+                        className="mt-3 w-full bg-gray-900 text-white text-md py-2 px-4 rounded-md hover:bg-gray-900/80 transition duration-1000 hover:text-gray-100"
                         disabled={loading} 
                     >
                         S&apos;inscrire

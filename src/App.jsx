@@ -5,15 +5,19 @@ import Footer from './components/footer'
 import './App.css'
 
 
+
 function App() {
   
   return (
+    <>
+
     <div className="bg-[#C8C4B9]/90 w-full">
      <Navbar />
      <BackgroundMusic />
      <Outlet /> 
      <Footer />
     </div>
+    </>
   )
 }
 
