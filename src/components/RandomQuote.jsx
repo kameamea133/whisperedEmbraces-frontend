@@ -47,28 +47,27 @@ const RandomQuote = () => {
   
   const handleGetQuote = () => {
     if (quotes.length === 0) return;
-
+  
     setIsSearching(true);
     setShowFinalQuote(false);
-
-    
-    const superposition = [];
-    for (let i = 0; i < 10; i++) {
-      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-      superposition.push(randomQuote);
-    }
-    
-
-    
+  
     setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * quotes.length);
-      const finalQuote = quotes[randomIndex];
+     
+      let randomIndex;
+      let finalQuote;
+  
+      
+      do {
+        randomIndex = Math.floor(Math.random() * quotes.length);
+        finalQuote = quotes[randomIndex];
+      } while (finalQuote === quote); 
+  
       setQuote(finalQuote);
       setShowFinalQuote(true);
       setIsSearching(false);
     }, 5000);
   };
-
+  
   if (loading) return <p>Chargement des citations...</p>;
 
   return (
@@ -96,7 +95,7 @@ const RandomQuote = () => {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
       >
-        Laissons le hasard agir...
+        Laissons le hasardeux agir...
       </motion.div>
     ) : (
       <Button

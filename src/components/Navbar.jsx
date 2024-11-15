@@ -48,38 +48,38 @@ const Navbar = () => {
     
 
   return (
-    <nav className={`fixed top-0 text-xl left-0 w-full z-50 text-white transition-colors duration-700 ${navbarBg ? 'bg-gray-900/70 shadow-md' : 'bg-transparent'}`}>
-    <div className="container mx-auto px-6 py-1 text-shadow flex justify-between items-center font-raleway">
+    <nav className={`fixed top-0 left-0 w-full z-50 sm:text-center text-white transition-colors duration-700 ${navbarBg ? 'bg-gray-900/70 shadow-md' : 'bg-transparent'}`}>
+    <div className="px-6 py-1 sm:text-center text-shadow flex justify-between items-center font-raleway">
         {/* Logo */}
-        <div className="text-lg font-bold relative flex items-center gap-4">
+        <div className="relative flex items-center">
             <Link to="/"
             onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
             >
-                <img src="/logo3.png" alt="logo" className="h-[50px] sm:h-[140px]" />
+                <img src="/logo3.png" alt="logo" className="h-[100px] lg:h-[150px] object-cover" />
             </Link>
             
         </div>
 
         {/* Menu Desktop */}
-        <ul className={`hidden md:flex space-x-8  ${userInfo ? 'ml-[150px]' : '' }`}>
+        <ul className={`hidden sm:flex space-x-6  text-base lg:text-xl ${userInfo ? 'lg:ml-[150px]' : '' }`}>
             <li> <Link 
     to={{ pathname: "/" }} 
     state={{ scrollToEtreintes: true }}
-    className="relative text-2xl text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full"
+    className="relative  text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full"
   >
     Étreintes
   </Link></li>
             <li><Link to={{ pathname: "/" }}
-      state={{ scrollTo: "randomQuote" }} className="relative text-2xl text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">Inspirations</Link></li>
+      state={{ scrollTo: "randomQuote" }} className="relative  text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">Inspirations</Link></li>
             {userInfo && (
             <>
               <li>
-                <Link to="/posts" className="relative text-2xl text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">
+                <Link to="/posts" className="relative  text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">
                   Mes textes
                 </Link>
               </li>
               <li>
-              <Link to="/profile" className="relative text-2xl text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">Mon profil</Link>
+              <Link to="/profile" className="relative  text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">Mon profil</Link>
               </li>
             </>
           )}
@@ -89,9 +89,9 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-4 items-center">
             {userInfo ? (
                 <div className="flex items-center gap-4">
-                    <p className="text-2xl break-words">Bonjour {userInfo.username}</p>
+                    <p className=" break-words">Bonjour {userInfo.username}</p>
                     <Button
-                        className="text-shadow text-2xl px-4 py-2 rounded-md hover:bg-white transition duration-300"
+                        className="text-shadow px-4 py-2 rounded-md hover:bg-white transition duration-300"
                         variant="ghost"
                         onClick={handleLogout}
                     >
@@ -102,7 +102,7 @@ const Navbar = () => {
             ) : (
                 <Button
                     onClick={handleLoginClick}
-                    className=" px-4 py-2 text-xl rounded-md bg-hite hover:bg-white transition duration-1000 hover:text-gray-600"
+                    className=" px-4 py-2 rounded-md bg-hite hover:bg-white transition duration-1000 hover:text-gray-600"
                     
                 >
                     connexion
