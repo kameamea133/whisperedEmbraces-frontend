@@ -55,7 +55,7 @@ const Navbar = () => {
             <Link to="/"
             onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
             >
-                <img src="/logo3.png" alt="logo" className="h-[100px] lg:h-[150px] object-cover" />
+                <img src="/logo3.png" alt="logo" className="h-[100px] lg:h-[130px] object-cover" />
             </Link>
             
         </div>
@@ -88,10 +88,10 @@ const Navbar = () => {
         {/* login / logout button */}
         <div className="hidden md:flex space-x-4 items-center">
             {userInfo ? (
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 lg:text-xl">
                     <p className=" break-words">Bonjour {userInfo.username}</p>
                     <Button
-                        className="text-shadow px-4 py-2 rounded-md hover:bg-white transition duration-300"
+                        className="text-shadow px-4 py-2 lg:text-xl rounded-md hover:bg-white transition duration-300"
                         variant="ghost"
                         onClick={handleLogout}
                     >
@@ -102,7 +102,7 @@ const Navbar = () => {
             ) : (
                 <Button
                     onClick={handleLoginClick}
-                    className=" px-4 py-2 rounded-md bg-hite hover:bg-white transition duration-1000 hover:text-gray-600"
+                    className=" px-4 py-2 rounded-md bg-hite lg:text-xl hover:bg-white transition duration-1000 hover:text-gray-600"
                     
                 >
                     connexion
@@ -171,6 +171,9 @@ const Navbar = () => {
           Connexion
         </button>
       )}
+      <Link to="/contact" onClick={() => setMenuOpen(false)}>
+      <Mail className="w-6 h-6 text-white" />
+      </Link>
     </motion.div>
   )}
 </AnimatePresence>

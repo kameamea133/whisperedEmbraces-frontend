@@ -83,24 +83,24 @@ const RandomQuote = () => {
   ></video>
 
  
-  <div className="absolute inset-0 bg-black opacity-30"></div>
+  <div className="absolute inset-0 bg-black opacity-30 min-h-[60vh]"></div>
 
-  <div className="relative w-full bg-slate-100/5 max-w-[90%] lg:max-w-[70%] h-[70vh] flex flex-col items-center justify-center rounded-lg shadow-xl">
+  <div className="relative w-full bg-slate-100/5 max-w-[90%] lg:max-w-[70%]  min-h-[60vh] flex flex-col items-center justify-center rounded-lg shadow-xl">
     
     {isSearching ? (
       <motion.div
-        className="text-3xl text-gray-700 font-bold mb-6"
+        className="md:text-3xl text-gray-500  text-center font-bold mb-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
       >
-        Laissons le hasardeux agir...
+        Laissons le hasard agir...
       </motion.div>
     ) : (
       <Button
         onClick={handleGetQuote}
-        className="text-md lg:text-lg shadow-xl px-8  mx-auto w-[200px] mt-[-30px] lg:mt-[-130px] lg:mb-[70px] bg-gray-900 hover:bg-gray-900/60 hover:text-gray-100 transition duration-1000"
+        className="text-md lg:text-lg shadow-xl px-8  mx-auto w-[200px] mt-[-30px] lg:max-mt-[-30px] lg:max-mb-[70px] bg-gray-900 hover:bg-gray-900/60 hover:text-gray-100 transition duration-1000"
       >
         Inspire-moi !
       </Button>
@@ -116,9 +116,9 @@ const RandomQuote = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 1 }}
         >
-          <blockquote className="text-lg md:text-2xl lg:text-3xl font-bold text-white text-center">
+          <blockquote className="text-lg md:text-2xl lg:text-3xl font-raleway font-semibold text-white text-center">
             {quote.text}
-            {quote.author && <footer className="font-tangerine italic text-5xl mt-5 text-right">-{quote.author}</footer>}
+            {quote.author && <footer className="font-tangerine italic text-xl md:text-3xl mt-5 text-right">-{quote.author}</footer>}
             
           </blockquote>
 
