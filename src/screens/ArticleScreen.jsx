@@ -9,6 +9,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "../components/ui/popover";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  WhatsappShareButton,
+  WhatsappIcon,
+  XIcon
+} from "react-share";
 
 
 const ArticleScreen = () => {
@@ -120,6 +128,9 @@ const ArticleScreen = () => {
   if (isLoading) return <p>Chargement...</p>;
   if (error) return <p>{error}</p>;
 
+  const postUrl = `${window.location.origin}/post/${id}`;
+  const postTitle = post?.title || "Poème";
+
   return (
     <div className="min-h-screen flex flex-col justify-center px-4">
       <div className="w-full p-6 pt-[100px]"></div>
@@ -139,6 +150,19 @@ const ArticleScreen = () => {
           dangerouslySetInnerHTML={{ __html: post.content }}
         ></div>
 
+{post.allowSharing && (
+          <div className="flex space-x-4 mt-6">
+            <FacebookShareButton url={postUrl} quote={postTitle}>
+              <FacebookIcon size={30} round />
+            </FacebookShareButton>
+            <TwitterShareButton url={postUrl} title={postTitle}>
+              <XIcon size={30} round />
+            </TwitterShareButton>
+            <WhatsappShareButton url={postUrl} title={postTitle}>
+              <WhatsappIcon size={30} round />
+            </WhatsappShareButton>
+          </div>
+        )}
        
         <Popover open={showPopover} onOpenChange={setShowPopover}>
   <PopoverTrigger asChild className="relative">

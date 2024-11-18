@@ -7,6 +7,7 @@ import SoftNotification from '@/components/SoftNotification';
 import { auth, db } from '@/firebaseConfig';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { useTranslation } from 'react-i18next';
 
 const RegisterScreen = () => {
     const [username, setUsername] = useState('');
@@ -17,6 +18,7 @@ const RegisterScreen = () => {
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -54,13 +56,12 @@ const RegisterScreen = () => {
     return (
         <>
             <FormContainer>
-                <h1 className="text-2xl font-bold mb-6 text-center">S&#39;enregistrer</h1>
+                <h1 className="text-2xl font-bold mb-6 text-center">{t('register.title')}</h1>
 
                 <form onSubmit={submitHandler} className="space-y-4">
-                    
                     <div className="my-2">
                         <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                            Nom d&apos;utilisateur
+                            {t('register.username')}
                         </label>
                         <input
                             type="text"
@@ -72,71 +73,60 @@ const RegisterScreen = () => {
                         />
                     </div>
 
-                   
                     <div className="my-2">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Email
+                            {t('register.email')}
                         </label>
                         <input
                             type="email"
                             id="email"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            placeholder="Entrer votre email"
+                            placeholder={t('register.enterEmail')}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
 
-                    
                     <div className="my-2">
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Mot de passe
+                            {t('register.password')}
                         </label>
                         <input
                             type="password"
                             id="password"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            placeholder="Entrer votre mot de passe"
+                            placeholder={t('register.enterPassword')}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
 
-                    
                     <div className="my-2">
                         <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                            Confirmer le mot de passe
+                            {t('register.confirmPassword')}
                         </label>
                         <input
                             type="password"
                             id="confirmPassword"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            placeholder="Confirmer votre mot de passe"
+                            placeholder={t('register.confirmYourPassword')}
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
 
-                    {loading && <Spinner />} 
+                    {loading && <Spinner />}
 
-                    <Button
-                        type="submit"
-                        className="mt-3 w-full bg-gray-900 text-white text-md py-2 px-4 rounded-md hover:bg-gray-900/80 transition duration-1000 hover:text-gray-100"
-                        disabled={loading} 
-                    >
-                        S&apos;inscrire
+                    <Button type="submit" className="mt-3 w-full bg-gray-900 text-white text-md py-2 px-4 rounded-md hover:bg-gray-900/80 transition duration-1000">
+                        {t('register.submit')}
                     </Button>
                 </form>
 
                 <div className="py-3 text-center">
-                    <p>
-                        Vous avez déjà un compte ? <Link to="/login" className="text-[#34B0CA] hover:underline">Se connecter</Link>
-                    </p>
+                    <p>{t('register.alreadyHaveAccount')} <Link to="/login" className="text-[#34B0CA] hover:underline">{t('register.login')}</Link></p>
                 </div>
 
-                {error && (
-                    <SoftNotification message={error} onClose={closeNotification} />
-                )}
+                {error && <SoftNotification message={error} onClose={closeNotification} />}
             </FormContainer>
         </>
     );

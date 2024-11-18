@@ -1,0 +1,179 @@
+{
+    "navbar": {
+      "embraces": "Embraces",
+      "inspirations": "Inspirations",
+      "myTexts": "My Texts",
+      "profile": "My Profile",
+      "logout": "Logout",
+      "login": "Login",
+      "hello": "Hello",
+      "contact": "Contact"
+    },
+    "hero": {
+    "title1": "Embraces",
+    "title2": "Ephemeral",
+    "text": "Here, words dance and confide, embracing in the secret of hearts."
+  },
+
+  "about": {
+    "text1": "...every word is a sigh from the heart, whispering the truth of emotions. Here, the writings become the echo of our dreams, the expression of our secret joys and silent sorrows, woven into the very fabric of existence.",
+    "text2": "On these pages, every poem, every thought, is an offering: a fragment of the soul shared in the hope of touching another's. This is a space where writing is a song, a whispered prayer to the universe, an embrace between the ephemeral and the eternal.",
+    "text3": "When you lay down your words, know that they become seeds sown in the garden of souls, ready to sprout, to comfort, and, I hope, to awaken. For in the beauty of the present moment, even the softest whisper can become a symphony of resonance.",
+    "text4": "Let life write through you. Every word is a delicate thread woven between light and shadow, where the tangible brushes against the immaterial, between solitude and communion. And remember, every shared embrace, even fleeting, makes us a little more human, a little more alive...",
+    "button": "Create an Embrace"
+  },
+
+  "postGrid": {
+    "title": "Embraces"
+  },
+  "randomQuote": {
+    "button": "Inspire me!",
+    "loading": "Let chance do its magic..."
+  },
+  "footer": {
+    "home": "Home",
+    "about": "About",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "contact": "Contact",
+    "copyright": "Ephemeral Embraces ©"
+  },
+  "conditions": {
+    "title": "Terms of Use",
+    "intro": "Welcome to Ephemeral Embraces, a site dedicated to sharing texts and poems. By using this site, you agree to the terms of use outlined below. If you do not agree, please stop using the site.",
+    "section1": "1. Introduction",
+    "section2": "2. Use of the Site",
+    "usage": "You agree not to post any offensive, illegal, or infringing content. Users are responsible for their own content and must respect other members of the community.",
+    "section3": "3. User Account",
+    "account": "To access certain features, you must create an account. You are responsible for the security of your credentials and the use of your account. Any inappropriate behavior may result in account suspension.",
+    "section4": "4. Intellectual Property",
+    "intellectualProperty": "The texts you publish remain your property. By posting on this site, you agree that your content will be publicly visible. You retain your copyrights, but you grant Ephemeral Embraces the right to publish and distribute your content on the site. You also agree that excerpts of your texts may be used for social media posts to promote the site and share inspiration with a wider audience.",
+    "section5": "5. Privacy",
+    "privacy": "We respect your privacy and use your personal information solely to manage your account. Please refer to our privacy policy for more details.",
+    "section6": "6. Limitation of Liability",
+    "liability": "Ephemeral Embraces cannot be held liable for indirect damages resulting from the use of the site. We do not guarantee the accuracy of content published by users.",
+    "section7": "7. Changes to Terms",
+    "modifications": "We reserve the right to modify these terms of use at any time. Users will be notified of significant changes via the site or email.",
+    "contact": "Contact",
+    "contactDetails": "For any questions or support, please contact us at: contact@etreintesephemeres.com"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "intro": "This privacy policy explains how Ephemeral Embraces collects, uses, and protects the personal information you share on our site.",
+    "section1": "1. Introduction",
+    "section2": "2. Data Collected",
+    "dataCollected": "We collect personal information you provide during registration, such as your name, email address, and any other data you choose to share, including texts and images you publish.",
+    "section3": "3. Data Usage",
+    "dataUsage": "The information collected is used for:",
+    "usageList": {
+      "item1": "Managing your account and posts.",
+      "item2": "Improving our services and providing an optimal user experience.",
+      "item3": "Sharing excerpts of your texts on our social networks, respecting your copyright."
+    },
+    "section4": "4. Data Sharing",
+    "dataSharing": "We do not share your personal information with third parties without your consent, except when required by law.",
+    "section5": "5. Data Security",
+    "dataSecurity": "We take measures to protect your personal information, but we cannot guarantee absolute security. Please use strong passwords and log out after each session.",
+    "section6": "6. Your Rights",
+    "rights": "You have the right to:",
+    "rightsList": {
+      "item1": "Access, modify, or delete your personal information.",
+      "item2": "Request the deletion of your data."
+    },
+    "contactInfo": "To exercise these rights, contact us at: contact@etreintesephemeres.com.",
+    "section7": "7. Changes to the Policy",
+    "policyChanges": "This privacy policy may be updated. Changes will take effect upon publication on the site.",
+    "contact": "Contact",
+    "contactDetails": "For any questions, contact us at: contact@etreintesephemeres.com"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "success": "Email sent successfully",
+    "error": "Failed to send email"
+  },
+  "login": {
+    "title": "Login",
+    "resetTitle": "Password Reset",
+    "email": "Email",
+    "password": "Password",
+    "enterEmail": "Enter your email",
+    "enterPassword": "Enter your password",
+    "submit": "Log In",
+    "resetSubmit": "Reset",
+    "forgotPassword": "Forgot password?",
+    "register": "New here?",
+    "signUp": "Sign Up",
+    "resetInstructions": "Enter your email address",
+    "resetSuccess": "A reset email has been sent. Please check your inbox.",
+    "resetError": "Failed to send reset email.",
+    "missingFields": "Please fill in all fields.",
+    "userNotFound": "User information not found.",
+    "backToLogin": "Back to Login"
+  },
+  "register": {
+    "title": "Register",
+    "username": "Username",
+    "email": "Email",
+    "enterEmail": "Enter your email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "enterPassword": "Enter your password",
+    "confirmYourPassword": "Confirm your password",
+    "passwordMismatch": "Passwords do not match",
+    "submit": "Sign Up",
+    "alreadyHaveAccount": "Already have an account?",
+    "login": "Log In",
+    "registrationSuccess": "Registration successful!",
+    "registrationError": "An error occurred during registration."
+  },
+  "posts": {
+    "title": "My Embraces"
+  },
+  "postForm": {
+    "createPost": "Create Post",
+    "title": "Title",
+    "content": "Content",
+    "language": "Language",
+    "languageFrench": "French",
+    "languageEnglish": "English",
+    "allowSharing": "Allow sharing by other users",
+    "headerImage": "Header Image (optional)",
+    "submit": "Submit",
+    "sending": "Sending...",
+    "preview": "Preview",
+    "hidePreview": "Hide Preview",
+    "error": "An error occurred while creating the post.",
+    "unknownAuthor": "Unknown Author"
+  },
+  "postsList": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "title": "Title",
+    "content": "Content",
+    "uploadImage": "Upload Image",
+    "errorUpdate": "Error during update",
+    "documentNotFound": "Document does not exist"
+  },
+  "profile": {
+    "title": "My Profile",
+    "username": "Username",
+    "email": "Email",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "enterCurrentPassword": "Enter your current password",
+    "enterNewPassword": "Enter a new password",
+    "confirmNewPasswordPlaceholder": "Confirm new password",
+    "save": "Update",
+    "passwordsDoNotMatch": "New passwords do not match",
+    "profileUpdated": "Profile updated successfully",
+    "updateError": "Error during update"
+  }
+  }
+  

@@ -13,7 +13,7 @@ import PrivacyPolicy from './screens/PrivacyPolicy';
 import store from './store';
 import PrivateRoute from './components/PrivateRoute';
 import { Provider } from 'react-redux';
-
+import "./lib/i18n"
 import './index.css';
 import App from './App.jsx';
 

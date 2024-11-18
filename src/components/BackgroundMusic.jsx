@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause } from 'lucide-react';
+import { Pause, Music} from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePlayPause, setPlaying } from '../slices/musicSlice';
 
@@ -53,7 +53,7 @@ const BackgroundMusic = () => {
           {isPlaying ? (
             <Pause className="w-6 h-6" />
           ) : (
-            <Play className="w-6 h-6" />
+            <Music className="w-6 h-6" />
           )}
         </motion.div>
       </motion.button>

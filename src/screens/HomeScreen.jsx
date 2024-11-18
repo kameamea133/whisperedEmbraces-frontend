@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
 import RandomQuote from "@/components/RandomQuote";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
 import { useEffect, useState } from "react";
@@ -14,16 +14,19 @@ const HomeScreen = () => {
   const [posts, setPosts] = useState([]);
   const userInfo = useSelector((state) => state.auth.userInfo);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.state?.scrollToAbout) {
-      document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-    } else if (location.state?.scrollToEtreintes) {
-      document.getElementById("etreintes-section")?.scrollIntoView({ behavior: "smooth" });
+    if (location.state?.scrollTo) {
+      const sectionId = location.state.scrollTo;
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+      // Réinitialiser l'état pour éviter un défilement futur inattendu
+      navigate(location.pathname, { replace: true, state: {} });
     }
-
-
-  }, [location]);
+  }, [location, navigate]);
   const fetchPosts = async () => {
     const postsCollection = collection(db, "posts");
     const postsSnapshot = await getDocs(postsCollection);

@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import { Feather } from "lucide-react";
-
+import { useTranslation } from 'react-i18next';
 const PostGrid = ({ posts }) => {
   const navigate = useNavigate();
   const defaultImageUrl = "/imgDefault.jpg";
+  const { t } = useTranslation();
 
   const stripHtml = (html) => {
     const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -13,7 +14,9 @@ const PostGrid = ({ posts }) => {
 
   return (
     <div id="etreintes-section" className="w-[88%] mx-auto min-h-screen p-4 my-5">
-      <h1 className="text-7xl my-[70px] font-thin text-center font-whisper text-shadow">Les étreintes</h1>
+      <h1 className="text-7xl my-[70px] font-thin text-center font-whisper text-shadow">
+        {t('postGrid.title')}
+      </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         {posts?.map((post) => (
           <div 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { db } from "@/firebaseConfig";
 import { collection, getDocs, getDoc, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import { Button } from "./ui/button";
 import ReactQuill from "react-quill";
 
@@ -13,6 +14,8 @@ const PostsList = () => {
   const [editImage, setEditImage] = useState(null);
 
   const userInfo = useSelector((state) => state.auth.userInfo);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -99,16 +102,16 @@ const PostsList = () => {
         );
         setEditMode(null);
       } catch (error) {
-        console.error("Erreur lors de la mise à jour :", error);
+        console.error(t('postsList.errorUpdate'), error);
       }
     } else {
-      console.error("Le document n'existe pas.");
+      console.error(t('postsList.documentNotFound'));
     }
   };
   
   
   return (
-    <div className="font-lora w-[70%] space-y-6 mx-auto min-h-[400px]">
+    <div className="font-lora grid grid-cols-1 sm:grid-cols-2 gap-6">
       {posts.map((post) => (
         <div key={post.id} className="bg-white h-full rounded-md shadow-md p-4 mb-6 md:mb-4">
           {editMode === post.id ? (
@@ -125,17 +128,19 @@ const PostsList = () => {
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
                 className="block w-full border rounded px-3 py-2"
+                placeholder={t('postsList.title')}
               />
               <ReactQuill value={editContent} onChange={setEditContent} />
               <input
                 type="file"
                 onChange={(e) => setEditImage(e.target.files[0])}
                 className="block w-full mt-2"
+                placeholder={t('postsList.uploadImage')}
               />
               <div className="flex space-x-2 mt-4">
-                <Button onClick={() => handleUpdate(post.id)}>Enregistrer</Button>
+                <Button onClick={() => handleUpdate(post.id)}>{t('postsList.save')}</Button>
                 <Button onClick={() => setEditMode(null)} variant="secondary">
-                  Annuler
+                  {t('postsList.cancel')}
                 </Button>
               </div>
             </div>
@@ -151,9 +156,9 @@ const PostsList = () => {
               <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
               <div dangerouslySetInnerHTML={{ __html: post.content }} className="text-base break-words" />
               <div className="flex space-x-2 mt-4 w-full">
-                <Button onClick={() => handleEdit(post)}>Modifier</Button>
+                <Button onClick={() => handleEdit(post)}>{t('postsList.edit')}</Button>
                 <Button onClick={() => handleDelete(post.id)} variant="destructive">
-                  Supprimer
+                {t('postsList.delete')}
                 </Button>
               </div>
             </div>

@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import ReactQuill from "react-quill";
+import { useTranslation } from 'react-i18next';
 import "react-quill/dist/quill.snow.css"; 
 
 const PostCreateForm = () => {
@@ -16,7 +17,10 @@ const PostCreateForm = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [language, setLanguage] = useState("fr");
+  const [allowSharing, setAllowSharing] = useState(true);
 
+  const { t } = useTranslation();
   
   const userInfo = useSelector((state) => state.auth.userInfo); 
 
@@ -49,10 +53,12 @@ const PostCreateForm = () => {
       await addDoc(collection(db, "posts"), {
         title: title,
         content: content,
+        language: language,
         imageUrl: imageUrl,
         createdAt: new Date(),
+        allowSharing,
         authorId: userInfo?.uid,
-        authorName: userInfo?.username || "Auteur inconnu", 
+        authorName: userInfo?.username || t('postForm.unknownAuthor'), 
         likes: []
       });
 
@@ -60,9 +66,10 @@ const PostCreateForm = () => {
       setContent("");
       setHeaderImage(null);
       setIsFormVisible(false);
+      setAllowSharing(true);
     } catch (err) {
-      console.error("Erreur de création du texte:", err);
-      setError("Une erreur est survenue lors de la création du texte.");
+      console.error(t('postForm.error'), err);
+      setError(t('postForm.error'));
     } finally {
       setIsLoading(false);
     }
@@ -72,7 +79,7 @@ const PostCreateForm = () => {
     <div className="relative mb-5 w-full max-w-3xl mx-auto">
       <Button onClick={() => setIsFormVisible(!isFormVisible)} className="flex items-center ml-16 space-x-2 lg:ml-10">
         <Plus className="w-5 h-5" />
-        <span>Créer un texte</span>
+        <span>{t('postForm.createPost')}</span>
       </Button>
 
       <AnimatePresence>
@@ -86,7 +93,7 @@ const PostCreateForm = () => {
           >
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label>Titre</label>
+                <label>{t('postForm.title')}</label>
                 <input
                   type="text"
                   value={title}
@@ -95,18 +102,41 @@ const PostCreateForm = () => {
                 />
               </div>
               <div>
-                <label>Contenu</label>
+                <label>{t('postForm.content')}</label>
                 <ReactQuill value={content} onChange={setContent} className="h-50 break-words" />
               </div>
               <div>
-                <label>Image d’en-tête (optionnelle)</label>
+                <label>{t('postForm.language')}</label>
+                <select
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                  className="block w-full border rounded px-3 py-2"
+                >
+                  <option value="fr">{t('postForm.languageFrench')}</option>
+                  <option value="en">{t('postForm.languageEnglish')}</option>
+                </select>
+              </div>
+
+              <div>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={allowSharing}
+                    onChange={() => setAllowSharing(!allowSharing)}
+                  />
+                  {t('postForm.allowSharing')}
+                </label>
+              </div>
+
+              <div>
+                <label>{t('postForm.headerImage')}</label>
                 <input type="file" onChange={handleImageChange} className="block w-full" />
               </div>
               <Button type="submit" disabled={isLoading} className="mr-2">
-                {isLoading ? "Envoi en cours..." : "Soumettre"}
+                {isLoading ? t('postForm.sending') : t('postForm.submit')}
               </Button>
               <Button type="button" onClick={() => setShowPreview(!showPreview)}>
-                {showPreview ? "Masquer la Prévisualisation" : "Prévisualiser"}
+                {showPreview ? t('postForm.hidePreview') : t('postForm.preview')}
               </Button>
               {error && <p className="text-red-500">{error}</p>}
             </form>
@@ -116,7 +146,7 @@ const PostCreateForm = () => {
                 {headerImage && (
                   <img
                     src={URL.createObjectURL(headerImage)}
-                    alt="Prévisualisation de l'image"
+                    alt={t('postForm.headerImage')}
                     className="w-full h-auto object-cover rounded-md mb-4 shadow-lg"
                   />
                 )}
@@ -129,6 +159,7 @@ const PostCreateForm = () => {
       </AnimatePresence>
     </div>
   );
+
 };
 
 export default PostCreateForm;
