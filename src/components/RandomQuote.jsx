@@ -118,7 +118,7 @@ const RandomQuote = () => {
               <blockquote className="text-lg md:text-2xl lg:text-3xl font-raleway font-semibold text-white text-center">
                 {quote.text}
                 {quote.author && (
-                  <footer className="font-tangerine italic text-xl md:text-3xl mt-5 text-right">
+                  <footer className="font-tangerine italic text-2xl md:text-3xl mt-5 text-right">
                     -{quote.author}
                   </footer>
                 )}
