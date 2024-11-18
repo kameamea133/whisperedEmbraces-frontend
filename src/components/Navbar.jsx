@@ -96,7 +96,7 @@ const Navbar = () => {
 
         {/* Toggle Menu for Mobile */}
         <button className="md:hidden flex items-center justify-center p-2" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8 text-black" />}
+          {menuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8 text-white" />}
         </button>
       </div>
 
