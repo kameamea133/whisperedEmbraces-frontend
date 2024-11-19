@@ -29,10 +29,43 @@ const PostsList = () => {
     fetchPosts();
   }, []);
 
+  
+
   const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "posts", id));
-    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+    try {
+     
+      const postRef = doc(db, "posts", id);
+      const postSnapshot = await getDoc(postRef);
+  
+      if (postSnapshot.exists()) {
+        const postData = postSnapshot.data();
+        const publicId = postData.publicId; 
+        if (publicId) {
+          await fetch(`https://api.cloudinary.com/v1_1/dhp8teilh/image/destroy`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ public_id: publicId }),
+          });
+          console.log("Image supprimée de Cloudinary :", publicId);
+        }
+  
+        
+        await deleteDoc(postRef);
+  
+        
+        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+        console.log("Post supprimé avec succès.");
+      } else {
+        console.error("Post non trouvé.");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression du post :", error);
+    }
   };
+  
+
 
   const handleEdit = (post) => {
     setEditMode(post.id);
@@ -55,14 +88,25 @@ const PostsList = () => {
   };
 
   const handleDeleteOldImage = async (publicId) => {
-    await fetch(`https://api.cloudinary.com/v1_1/dhp8teilh/image/destroy`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ public_id: publicId }),
-    });
+    try {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/dhp8teilh/image/destroy`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ public_id: publicId }), 
+      });
+  
+      const result = await response.json();
+  
+      if (result.result !== "ok") {
+        console.error("Erreur lors de la suppression de l'image dans Cloudinary :", result);
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'appel à l'API de Cloudinary :", error);
+    }
   };
+  
 
   const handleUpdate = async (id) => {
     const postRef = doc(db, "posts", id);

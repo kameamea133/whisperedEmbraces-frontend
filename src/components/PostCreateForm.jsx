@@ -34,6 +34,7 @@ const PostCreateForm = () => {
 
     try {
       let imageUrl = "";
+      let publicId = "";
       
       if (headerImage) {
         const formData = new FormData();
@@ -47,6 +48,7 @@ const PostCreateForm = () => {
         });
         const data = await response.json();
         imageUrl = data.secure_url;
+        publicId = data.public_id;
       }
 
       
@@ -55,6 +57,7 @@ const PostCreateForm = () => {
         content: content,
         language: language,
         imageUrl: imageUrl,
+        publicId: publicId,
         createdAt: new Date(),
         allowSharing,
         authorId: userInfo?.uid,
