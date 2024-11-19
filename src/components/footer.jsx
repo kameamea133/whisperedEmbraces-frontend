@@ -32,7 +32,7 @@ const Footer = () => {
           <li>
             <Link 
               to="/conditions" 
-              className="text-gray-400 text-lg hover:text-white"
+              className="relative text-lg text-gray-400 hover:text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full"
             >
               {t('footer.terms')}
             </Link>

@@ -50,7 +50,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 h-auto w-full z-50 sm:text-center text-white transition-colors duration-700 ${navbarBg ? 'bg-gray-900/90 shadow-md' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 text-shadow left-0 h-auto w-full z-50 sm:text-center text-white transition-colors duration-700 ${navbarBg ? 'bg-gray-900/90 shadow-md' : 'bg-transparent'}`}>
       <div className="px-6 py-1 flex justify-between items-center font-raleway">
         {/* Logo */}
         <div className="relative flex items-center">
@@ -80,15 +80,15 @@ const Navbar = () => {
           {userInfo ? (
             <div className="flex items-center gap-4 lg:text-base uppercase">
               <p className="bg-gray-400/20 shadow-xl px-2 py-1 rounded-md">&quot; {t('navbar.hello')} {userInfo.username} &quot;</p>
-              <Button onClick={handleLogout} className="text-base px-2 py-1 hover:shadow-xl uppercase bg-transparent">{t('navbar.logout')}</Button>
+              <Button onClick={handleLogout} className="text-base text-shadow px-2 py-1 hover:shadow-xl uppercase bg-transparent">{t('navbar.logout')}</Button>
             </div>
           ) : (
-            <Button onClick={handleLoginClick} className="text-base uppercase bg-transparent" >{t('navbar.login')}</Button>
+            <Button onClick={handleLoginClick} className="text-base uppercase bg-transparent text-shadow" >{t('navbar.login')}</Button>
           )}
           <Link to="/contact"><Mail className="w-6 h-6 text-white" /></Link>
         <div className="flex gap-2 ml-4">
-          <button onClick={() => changeLanguage('fr')}>FR</button>
-          <button onClick={() => changeLanguage('en')}>EN</button>
+          <button onClick={() => changeLanguage('fr')} className="text-shadow">FR</button>
+          <button onClick={() => changeLanguage('en')} className="text-shadow">EN</button>
         </div>
         </div>
 

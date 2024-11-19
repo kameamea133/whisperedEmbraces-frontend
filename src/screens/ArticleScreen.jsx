@@ -17,6 +17,8 @@ import {
   WhatsappIcon,
   XIcon
 } from "react-share";
+import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
 
 
 const ArticleScreen = () => {
@@ -32,6 +34,8 @@ const ArticleScreen = () => {
   const [newComment, setNewComment] = useState("");
   const [username, setUsername] = useState(userInfo?.username || "");
   const [comments, setComments] = useState([]);
+
+  const { t } = useTranslation();
 
   const defaultImageUrl = "/imgDefault.jpg";
 
@@ -67,7 +71,7 @@ const ArticleScreen = () => {
     if (!newComment.trim()) return;
 
     const comment = {
-      username: username || "Anonyme",
+      username: username || t("comments.anonymous"),
       content: newComment,
       isApproved: false, 
       createdAt: new Date().toISOString(),
@@ -166,10 +170,10 @@ const ArticleScreen = () => {
        
         <Popover open={showPopover} onOpenChange={setShowPopover}>
   <PopoverTrigger asChild className="relative">
-    <div className="relative flex items-center mt-4">
+    <div onClick={handleLikeToggle} className="relative flex items-center mt-4">
       <Feather
         className={`w-6 h-6 cursor-pointer ${likedByUser ? 'text-[#34B0CA]' : 'text-gray-400'}`}
-        onClick={handleLikeToggle}
+        
       />
       <span className="ml-2 text-gray-500">{post.likes?.length || 0} Résonance(s)</span>
     </div>
@@ -216,22 +220,25 @@ const ArticleScreen = () => {
           <textarea
             className="w-full p-2 border rounded"
             rows="3"
-            placeholder="Laisser un commentaire..."
+            placeholder={t("comments.leaveComment")}
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
           ></textarea>
-          <button type="submit" className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
-            Ajouter un commentaire
-          </button>
+          <Button type="submit" className="mt-4 w-full">
+          {t("comments.addButton")}
+          </Button>
         </form>
 
         
         <div className="flex flex-col gap-6 p-4 md:p-8 w-full md:w-[80%] lg:w-[70%] xl:w-[60%] mx-auto font-lora rounded-md shadow-lg bg-[url('/paperBg3.png')] bg-cover bg-no-repeat bg-center mt-10 mb-10">
-          <h2 className="text-xl font-bold mb-4">Commentaires :</h2>
+          <h2 className="text-xl font-bold mb-4">{t("comments.title")}</h2>
           {comments.filter(comment => comment.isApproved).map((comment, index) => (
             <div key={index} className="bg-gray-100 p-4 rounded mb-4">
-              <p className="text-sm text-gray-700">Par {comment.username}</p>
-              <p>{comment.content}</p>
+              <p className="text-sm text-gray-700">{t("comments.by")} {comment.username}</p>
+              <p className="text-xs text-gray-500">
+                 {comment.createdAt ? new Date(comment.createdAt).toLocaleDateString() : t("comments.unknownDate")}
+              </p>
+              <p className="mt-2">{comment.content}</p>
             </div>
           ))}
         </div>

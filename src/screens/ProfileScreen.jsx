@@ -104,7 +104,6 @@ const ProfileScreen = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            
             <button
               type="button"
               className="absolute right-2 top-8 text-gray-500"
@@ -160,7 +159,7 @@ const ProfileScreen = () => {
 
           <Button
             type="submit"
-            className="mt-3 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
+            className="mt-3 w-full"
           >
             {t('profile.save')}
           </Button>

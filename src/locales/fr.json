@@ -175,6 +175,14 @@
     "passwordsDoNotMatch": "Les nouveaux mots de passe ne correspondent pas",
     "profileUpdated": "Profil mis à jour avec succès",
     "updateError": "Erreur lors de la mise à jour"
+  },
+  "comments": {
+    "enterName": "Entrez votre nom (optionnel)",
+    "leaveComment": "Laisser un commentaire...",
+    "addButton": "Ajouter un commentaire",
+    "title": "Commentaires :",
+    "by": "Par",
+    "unknownDate": "Date inconnue"
   }
   }
   
