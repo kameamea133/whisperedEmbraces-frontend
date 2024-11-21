@@ -50,12 +50,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 text-shadow left-0 h-auto w-full z-50 sm:text-center text-white transition-colors duration-700 ${navbarBg ? 'bg-gray-900/90 shadow-md' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 text-shadow left-0 h-[9rem] w-full z-50 sm:text-center text-white transition-colors duration-700 ${navbarBg ? 'bg-gray-900/90 shadow-md' : 'bg-transparent'}`}>
       <div className="px-6 py-1 flex justify-between items-center font-raleway">
         {/* Logo */}
         <div className="relative flex items-center">
           <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img src="/logo12.png" alt="logo" className="h-[110px] lg:h-[160px] object-cover rounded-full" />
+            <img src="/logo12.png" alt="logo" className="h-[110px] lg:h-[140px] object-cover rounded-full" />
           </Link>
         </div>
 

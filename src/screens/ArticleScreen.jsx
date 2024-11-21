@@ -157,13 +157,13 @@ const ArticleScreen = () => {
 {post.allowSharing && (
           <div className="flex space-x-4 mt-6">
             <FacebookShareButton url={postUrl} quote={postTitle}>
-              <FacebookIcon size={30} round />
+              <FacebookIcon size={30} round bgStyle={{ fill: '#3b82f6' }}/>
             </FacebookShareButton>
             <TwitterShareButton url={postUrl} title={postTitle}>
-              <XIcon size={30} round />
+              <XIcon size={30} round  bgStyle={{ fill: '#3b82f6' }}/>
             </TwitterShareButton>
             <WhatsappShareButton url={postUrl} title={postTitle}>
-              <WhatsappIcon size={30} round />
+              <WhatsappIcon size={30} round bgStyle={{ fill: '#3b82f6' }}/>
             </WhatsappShareButton>
           </div>
         )}
