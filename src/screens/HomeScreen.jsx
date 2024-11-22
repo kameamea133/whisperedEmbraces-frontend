@@ -23,7 +23,7 @@ const HomeScreen = () => {
       if (section) {
         section.scrollIntoView({ behavior: "smooth" });
       }
-      // Réinitialiser l'état pour éviter un défilement futur inattendu
+      
       navigate(location.pathname, { replace: true, state: {} });
     }
   }, [location, navigate]);
