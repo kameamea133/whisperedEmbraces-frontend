@@ -62,7 +62,8 @@ const PostCreateForm = () => {
         allowSharing,
         authorId: userInfo?.uid,
         authorName: userInfo?.username || t('postForm.unknownAuthor'), 
-        likes: []
+        likes: [],
+        comments: [],
       });
 
       setTitle("");

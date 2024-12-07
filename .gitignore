@@ -25,3 +25,7 @@ dist-ssr
 
 # Variables d'environnement
 .env
+
+#firestore rules
+firestore.rules
+

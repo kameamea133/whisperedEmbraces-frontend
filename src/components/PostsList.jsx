@@ -114,7 +114,6 @@ const PostsList = () => {
   
     if (postSnapshot.exists()) {
       const postData = postSnapshot.data();
-  
       let imageUrl = postData.imageUrl;
       let publicId = postData.publicId;
   

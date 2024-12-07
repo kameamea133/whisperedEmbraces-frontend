@@ -41,8 +41,10 @@ const ArticleScreen = () => {
 
   useEffect(() => {
     const fetchPost = async () => {
+
       try {
         const docRef = doc(db, "posts", id);
+        
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
@@ -62,7 +64,7 @@ const ArticleScreen = () => {
         setIsLoading(false);
       }
     };
-
+    
     fetchPost();
   }, [id, userInfo?.uid]);
 
@@ -77,16 +79,23 @@ const ArticleScreen = () => {
       createdAt: new Date().toISOString(),
     };
 
+    
+
     try {
       const docRef = doc(db, "posts", id);
+      
       await updateDoc(docRef, {
         comments: arrayUnion(comment),
       });
+      
+
+
+      
       setNewComment("");
       setUsername(userInfo?.username || ""); 
       alert("Votre commentaire a été soumis pour approbation.");
     } catch (error) {
-      console.error("Erreur lors de l'ajout du commentaire :", error);
+      console.error("Erreur lors de l'ajout du commentaire :", error.message, error.code, error);
     }
   };
 
@@ -175,7 +184,7 @@ const ArticleScreen = () => {
         className={`w-6 h-6 cursor-pointer ${likedByUser ? 'text-[#34B0CA]' : 'text-gray-400'}`}
         
       />
-      <span className="ml-2 text-gray-500">{post.likes?.length || 0} Résonance(s)</span>
+      <span className="ml-2 text-gray-500 cursor-pointer">{post.likes?.length || 0} Résonance(s)</span>
     </div>
   </PopoverTrigger>
 
