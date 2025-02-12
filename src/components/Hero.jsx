@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
   return (
-    <section className="relative h-[50vh] md:h-[75vh] lg:h-screen overflow-hidden">
+    <section className="relative min-h-[50vh] md:min-h-[75vh] lg:min-h-screen overflow-hidden">
+      {/* Video background */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
@@ -20,37 +23,38 @@ const Hero = () => {
         onLoadedData={() => setIsLoaded(true)}
       >
         <source src="/bgVideo.mp4" type="video/mp4" />
-        Votre navigateur ne prend pas en charge la lecture de vidéos.
+        {t('hero.videoError')}
       </video>
 
-      {/* dark overlay */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
 
-      <div className="absolute bottom-[50px] md:bottom-[100px] lg:bottom-[200px] left-4 md:left-8 lg:left-10 z-20 text-white text-left">
+      {/* Hero text */}
+      <div className="absolute flex flex-col justify-center px-4 pt-[30%] md:px-8 md:py-16 lg:px-10 md:top-[25%] z-20 text-white text-left">
         <motion.h1
-          className="text-[100px] md:text-[80px] lg:text-[200px] font-whisper leading-tight md:leading-[1] text-shadow"
+          className="text-[5rem] md:text-[6rem] lg:text-[8rem] mb-[-30px] font-whisper leading-tight text-shadow"
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 5, delay: 1.5 }}
         >
-          Étreintes
+          {t('hero.title1')}
         </motion.h1>
         <motion.h1
-          className="text-[100px] md:text-[80px] lg:text-[200px] font-whisper leading-tight md:leading-[1] ml-2 md:ml-4 lg:ml-10 text-shadow"
+          className="text-[5rem] md:text-[6rem] lg:text-[8rem] font-whisper leading-tight text-shadow"
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 5, delay: 2.5 }}
         >
-          Éphémères
+          {t('hero.title2')}
         </motion.h1>
-        <motion.h3
-          className="text-[40px] md:text-[32px] lg:text-[67px] font-whisper leading-tight md:leading-[1] ml-2 md:ml-4 lg:ml-10 text-shadow"
+        <motion.p
+          className="text-[1.5rem] h-[20px] md:text-[6rem] lg:text-[3rem] font-whisper leading-tight text-shadow"
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 5, delay: 3.5 }}
         >
-          (ephemeral embraces)
-        </motion.h3>
+          {t('hero.text')}
+        </motion.p>
       </div>
     </section>
   );

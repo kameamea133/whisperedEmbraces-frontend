@@ -1,0 +1,189 @@
+{
+    "navbar": {
+      "embraces": "etreintes",
+      "inspirations": "Inspirations",
+      "myTexts": "Mes textes",
+      "profile": "Mon profil",
+      "logout": "Déconnexion",
+      "login": "Connexion",
+      "hello": "Bonjour",
+      "contact": "Contact"
+    },
+    
+      "hero": {
+        "title1": "Etreintes",
+        "title2": "Ephémères",
+        "text": "Ici, les mots dansent et se confient, s'enlaçant dans le secret des cœurs."
+      },
+
+      "about": {
+        "text1": "...chaque mot est un soupir venu du cœur, murmurant la vérité des émotions. Ici, les écrits deviennent l’écho de nos songes, l’expression de nos joies secrètes et de nos peines muettes, tissées dans l’étoffe même de l’existence.",
+        "text2": "Sur ces pages, chaque poème, chaque pensée, est une offrande : un fragment de l’âme partagé dans l’espérance de toucher celle d’un autre. C’est un espace où l’écriture est un chant, une prière murmurée à l’univers, une étreinte entre l’éphémère et l’éternité.",
+        "text3": "Quand vous déposez vos mots, sachez qu’ils deviennent des graines semées dans le jardin des âmes, prêtes à germer, à réconforter et, je l'espère, à éveiller. Car dans la beauté de l’instant présent, même le murmure le plus doux peut devenir une symphonie de résonance.",
+        "text4": "Laissez la vie écrire à travers vous. Chaque mot est un délicat lien brodé entre la lumière et l'ombre, là où le tangible s'effleure à l'immatériel, entre la solitude et la communion. Et rappelez-vous, chaque étreinte partagée, même fugace, nous rend un peu plus humains, un peu plus vivants...",
+        "button": "Créer une étreinte"
+      },
+
+      "postGrid": {
+    "title": "Les étreintes"
+  },
+  "randomQuote": {
+    "button": "Inspire-moi !",
+    "loading": "Laissons le hasard agir..."
+  },
+  "footer": {
+    "home": "Accueil",
+    "about": "À propos",
+    "terms": "Conditions d’utilisation",
+    "privacy": "Politique de confidentialité",
+    "contact": "Contact",
+    "copyright": "Étreintes Éphémères ©"
+  },
+  "conditions": {
+    "title": "Conditions d’utilisation",
+    "intro": "Bienvenue sur Étreintes Éphémères, un site dédié au partage de textes et de poèmes. En utilisant ce site, vous acceptez les conditions d’utilisation énoncées ci-dessous. Si vous n’êtes pas d’accord, veuillez cesser d’utiliser le site.",
+    "section1": "1. Introduction",
+    "section2": "2. Utilisation du site",
+    "usage": "Vous acceptez de ne pas publier de contenu offensant, illégal ou en violation des droits d'autrui. Les utilisateurs sont responsables de leur propre contenu et doivent respecter les autres membres de la communauté.",
+    "section3": "3. Compte utilisateur",
+    "account": "Pour accéder à certaines fonctionnalités, vous devez créer un compte. Vous êtes responsable de la sécurité de vos identifiants et de l’utilisation de votre compte. Tout comportement inapproprié pourra entraîner la suspension de votre compte.",
+    "section4": "4. Propriété intellectuelle",
+    "intellectualProperty": "Les textes publiés restent la propriété de leurs auteurs. En postant sur ce site, vous acceptez que votre contenu soit visible publiquement. Vous conservez vos droits d'auteur, mais vous accordez à Étreintes Éphémères le droit de publier et diffuser votre contenu sur le site. Vous acceptez également que des extraits de vos textes puissent être utilisés pour des publications sur les réseaux sociaux dans le but de promouvoir le site et de partager l'inspiration avec un plus large public.",
+    "section5": "5. Confidentialité",
+    "privacy": "Nous respectons votre vie privée et utilisons vos informations personnelles uniquement pour gérer votre compte. Veuillez consulter notre politique de confidentialité pour plus de détails.",
+    "section6": "6. Limitation de responsabilité",
+    "liability": "Étreintes Éphémères ne pourra être tenu responsable des dommages indirects résultant de l'utilisation du site. Nous ne garantissons pas l’exactitude du contenu publié par les utilisateurs.",
+    "section7": "7. Modification des conditions",
+    "modifications": "Nous nous réservons le droit de modifier ces conditions d'utilisation à tout moment. Les utilisateurs seront informés des modifications importantes via le site ou par e-mail.",
+    "contact": "Contact",
+    "contactDetails": "Pour toute question ou demande d’assistance, vous pouvez nous contacter à : contact@etreintesephemeres.com"
+  },
+  "privacyPolicy": {
+    "title": "Politique de confidentialité",
+    "intro": "Cette politique de confidentialité explique comment Étreintes Éphémères collecte, utilise et protège les informations personnelles que vous partagez sur notre site.",
+    "section1": "1. Introduction",
+    "section2": "2. Données collectées",
+    "dataCollected": "Nous collectons des informations personnelles que vous fournissez lors de l’inscription, telles que votre nom, votre adresse e-mail, et toute autre donnée que vous choisissez de partager, y compris les textes et images que vous publiez.",
+    "section3": "3. Utilisation des données",
+    "dataUsage": "Les informations collectées sont utilisées pour :",
+    "usageList": {
+      "item1": "Gérer votre compte et vos publications.",
+      "item2": "Améliorer nos services et fournir une expérience utilisateur optimale.",
+      "item3": "Partager des extraits de vos textes sur nos réseaux sociaux, en respectant votre droit d’auteur."
+    },
+    "section4": "4. Partage des données",
+    "dataSharing": "Nous ne partageons pas vos informations personnelles avec des tiers sans votre consentement, sauf si la loi l’exige.",
+    "section5": "5. Sécurité des données",
+    "dataSecurity": "Nous prenons des mesures pour protéger vos informations personnelles, mais nous ne pouvons garantir une sécurité totale. Veuillez utiliser des mots de passe forts et vous déconnecter après chaque session.",
+    "section6": "6. Vos droits",
+    "rights": "Vous avez le droit de :",
+    "rightsList": {
+      "item1": "Consulter, modifier ou supprimer vos informations personnelles.",
+      "item2": "Demander l’effacement de vos données."
+    },
+    "contactInfo": "Pour exercer ces droits, contactez-nous à l’adresse suivante : contact@etreintesephemeres.com.",
+    "section7": "7. Modifications de la politique",
+    "policyChanges": "Cette politique de confidentialité peut être mise à jour. Les modifications prendront effet dès leur publication sur le site.",
+    "contact": "Contact",
+    "contactDetails": "Pour toute question, contactez-nous à : contact@etreintesephemeres.com"
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "send": "Envoyer",
+    "success": "Email envoyé avec succès",
+    "error": "Échec de l'envoi de l'email"
+  },
+  "login": {
+    "title": "Connexion",
+    "resetTitle": "Réinitialisation du mot de passe",
+    "email": "Email",
+    "password": "Mot de passe",
+    "enterEmail": "Entrer l'email",
+    "enterPassword": "Entrer le mot de passe",
+    "submit": "Se connecter",
+    "resetSubmit": "Réinitialiser",
+    "forgotPassword": "Mot de passe oublié ?",
+    "register": "Vous êtes nouveau ici ?",
+    "signUp": "S’inscrire",
+    "resetInstructions": "Entrez votre adresse email",
+    "resetSuccess": "Un email de réinitialisation a été envoyé. Veuillez vérifier votre boîte de réception.",
+    "resetError": "Impossible d'envoyer l'email de réinitialisation.",
+    "missingFields": "Veuillez remplir tous les champs.",
+    "userNotFound": "Les informations de l'utilisateur sont introuvables.",
+    "backToLogin": "Retour à la connexion"
+  },
+  "register": {
+    "title": "S'enregistrer",
+    "username": "Nom d'utilisateur",
+    "email": "Email",
+    "enterEmail": "Entrer votre email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "enterPassword": "Entrer votre mot de passe",
+    "confirmYourPassword": "Confirmer votre mot de passe",
+    "passwordMismatch": "Le mot de passe ne correspond pas",
+    "submit": "S'inscrire",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "login": "Se connecter",
+    "registrationSuccess": "Enregistrement réussi !",
+    "registrationError": "Une erreur s'est produite lors de l'inscription."
+  },
+  "posts": {
+    "title": "Mes étreintes"
+  },
+  "postForm": {
+    "createPost": "Créer un texte",
+    "title": "Titre",
+    "content": "Contenu",
+    "language": "Langue",
+    "languageFrench": "Français",
+    "languageEnglish": "Anglais",
+    "allowSharing": "Autoriser le partage par d'autres utilisateurs",
+    "headerImage": "Image d’en-tête (optionnelle)",
+    "submit": "Soumettre",
+    "sending": "Envoi en cours...",
+    "preview": "Prévisualiser",
+    "hidePreview": "Masquer la Prévisualisation",
+    "error": "Une erreur est survenue lors de la création du texte.",
+    "unknownAuthor": "Auteur inconnu"
+  },
+  "postsList": {
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "title": "Titre",
+    "content": "Contenu",
+    "uploadImage": "Télécharger une image",
+    "errorUpdate": "Erreur lors de la mise à jour",
+    "documentNotFound": "Le document n'existe pas"
+  },
+  "profile": {
+    "title": "Mon Profil",
+    "username": "Nom d'utilisateur",
+    "email": "Email",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "enterCurrentPassword": "Entrer votre mot de passe actuel",
+    "enterNewPassword": "Entrer un nouveau mot de passe",
+    "confirmNewPasswordPlaceholder": "Confirmer le nouveau mot de passe",
+    "save": "Mettre à jour",
+    "passwordsDoNotMatch": "Les nouveaux mots de passe ne correspondent pas",
+    "profileUpdated": "Profil mis à jour avec succès",
+    "updateError": "Erreur lors de la mise à jour"
+  },
+  "comments": {
+    "enterName": "Entrez votre nom (optionnel)",
+    "leaveComment": "Laisser un commentaire...",
+    "addButton": "Ajouter un commentaire",
+    "title": "Commentaires :",
+    "by": "Par",
+    "unknownDate": "Date inconnue"
+  }
+  }
+  
+  

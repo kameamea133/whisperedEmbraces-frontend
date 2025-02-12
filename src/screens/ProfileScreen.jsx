@@ -1,16 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import FormContainer from '@/components/FormContainer';
 import { Button } from '@/components/ui/button';
 import Spinner from '@/components/Spinner';
-import { useUpdateProfileMutation } from '@/slices/usersApiSlice';
+import { useTranslation } from 'react-i18next';
 import SoftNotification from '@/components/SoftNotification';
 import { Eye, EyeOff } from 'lucide-react';
+import { db, auth } from '@/firebaseConfig';
+import { doc, updateDoc } from 'firebase/firestore';
+import {  updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 
 const ProfileScreen = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [username, setUsername] = useState(userInfo?.username || '');
-  const [email, setEmail] = useState(userInfo?.email || '');
+
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
@@ -18,14 +21,11 @@ const ProfileScreen = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [notification, setNotification] = useState({ show: false, message: '', type: '' });
-  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (userInfo) {
-      setUsername(userInfo.username);
-      setEmail(userInfo.email);
-    }
-  }, [userInfo]);
+  const currentUser = auth.currentUser;
+
+  const { t } = useTranslation();
 
   const togglePasswordVisibility = (setter) => {
     setter((prev) => !prev);
@@ -33,17 +33,38 @@ const ProfileScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (newPassword !== confirmNewPassword) {
-      setNotification({ show: true, message: 'Les nouveaux mots de passe ne correspondent pas', type: 'error' });
-      return;
-    }
+    setLoading(true);
+
     try {
-      // eslint-disable-next-line no-unused-vars
-      const updatedUser = await updateProfile({ username, email, password, newPassword }).unwrap();
-      setNotification({ show: true, message: 'Profil mis à jour avec succès', type: 'success' });
-      // console.log('Profil mis à jour :', updatedUser);
+      
+      if (password) {
+        const credential = EmailAuthProvider.credential(currentUser.email, password);
+        await reauthenticateWithCredential(currentUser, credential);
+      }
+
+      
+     
+
+     
+      if (newPassword && newPassword === confirmNewPassword) {
+        await updatePassword(currentUser, newPassword);
+      } else if (newPassword !== confirmNewPassword) {
+        setNotification({ show: true, message: t('profile.passwordsDoNotMatch'), type: 'error' });
+        setLoading(false);
+        return;
+      }
+
+      
+      if (username !== userInfo?.username) {
+        const userDocRef = doc(db, "users", currentUser.uid); 
+        await updateDoc(userDocRef, { username });
+      }
+
+      setNotification({ show: true, message: t('profile.profileUpdated'), type: 'success' });
     } catch (err) {
-      setNotification({ show: true, message: err.data?.message || 'Erreur lors de la mise à jour', type: 'error' });
+      setNotification({ show: true, message: err.message || t('profile.updateError'), type: 'error' });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,11 +77,11 @@ const ProfileScreen = () => {
         />
       )}
       <FormContainer>
-        <h1 className="text-2xl font-bold mb-6 text-center">Mon Profil</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">{t('profile.title')}</h1>
         <form onSubmit={submitHandler} className="space-y-4">
           <div className="my-2">
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-              Nom d&apos;utilisateur
+            {t('profile.username')}
             </label>
             <input
               type="text"
@@ -71,28 +92,15 @@ const ProfileScreen = () => {
             />
           </div>
 
-          <div className="my-2">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
           <div className="my-2 relative">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Mot de passe actuel
+            {t('profile.currentPassword')}
             </label>
             <input
               type={showPassword ? 'text' : 'password'}
               id="password"
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              placeholder="Entrer votre mot de passe actuel"
+              placeholder={t('profile.enterCurrentPassword')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -107,13 +115,13 @@ const ProfileScreen = () => {
 
           <div className="my-2 relative">
             <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
-              Nouveau mot de passe
+            {t('profile.newPassword')}
             </label>
             <input
               type={showNewPassword ? 'text' : 'password'}
               id="newPassword"
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              placeholder="Entrer un nouveau mot de passe"
+              placeholder={t('profile.enterNewPassword')}
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
@@ -128,13 +136,13 @@ const ProfileScreen = () => {
 
           <div className="my-2 relative">
             <label htmlFor="confirmNewPassword" className="block text-sm font-medium text-gray-700">
-              Confirmer le nouveau mot de passe
+            {t('profile.confirmNewPassword')}
             </label>
             <input
               type={showConfirmPassword ? 'text' : 'password'}
               id="confirmNewPassword"
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              placeholder="Confirmer le nouveau mot de passe"
+              placeholder={t('profile.confirmNewPasswordPlaceholder')}
               value={confirmNewPassword}
               onChange={(e) => setConfirmNewPassword(e.target.value)}
             />
@@ -147,13 +155,13 @@ const ProfileScreen = () => {
             </button>
           </div>
 
-          {isLoading && <Spinner />}
+          {loading && <Spinner />}
 
           <Button
             type="submit"
-            className="mt-3 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
+            className="mt-3 w-full"
           >
-            Mettre à jour
+            {t('profile.save')}
           </Button>
         </form>
       </FormContainer>
