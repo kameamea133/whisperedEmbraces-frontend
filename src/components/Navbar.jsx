@@ -111,8 +111,8 @@ const Navbar = () => {
             transition={{ duration: 0.4 }}
           >
             {userInfo && <p className="text-xl mb-9">{t('navbar.hello')} {userInfo.username}</p>}
-            <Link to="/" className="text-xl" onClick={() => setMenuOpen(false)}>{t('navbar.embraces')}</Link>
-            <Link to="/" state={{ scrollTo: "randomQuote" }} className="text-xl" onClick={() => setMenuOpen(false)}>{t('navbar.inspirations')}</Link>
+            <Link to={{ pathname: "/" }} state={{ scrollTo: "etreintes-section" }} className="text-xl" onClick={() => setMenuOpen(false)}>{t('navbar.embraces')}</Link>
+            <Link to={{ pathname: "/" }} state={{ scrollTo: "randomQuote" }} className="text-xl" onClick={() => setMenuOpen(false)}>{t('navbar.inspirations')}</Link>
             {userInfo ? (
               <>
                 <Link to="/posts" className="text-xl" onClick={() => setMenuOpen(false)}>{t('navbar.myTexts')}</Link>
