@@ -50,7 +50,7 @@ const Footer = () => {
           <li>
             <Link 
               to="/contact" 
-              className="relative text-lg text-gray-400 hover:text-white"
+              className="relative text-lg text-gray-400 hover:text-white flex items-center gap-1"
             >
               <Mail className="inline-block" /> {t('footer.contact')}
             </Link>

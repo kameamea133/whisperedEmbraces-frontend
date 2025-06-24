@@ -1,9 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { db } from "@/firebaseConfig";
 import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
-import { ArrowLeft, Feather } from "lucide-react";
-import { useSelector } from "react-redux"; 
+import { ArrowLeft, Feather, Volume2, Play, Pause, Square } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux"; 
+import { setPlaying } from "../slices/musicSlice";
 import {
   Popover,
   PopoverContent,
@@ -25,6 +26,8 @@ const ArticleScreen = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth); 
+  const dispatch = useDispatch();
+  const backgroundMusicState = useSelector(state => state.music.isPlaying);
   const [alertMessage, setAlertMessage] = useState(null);
   const [post, setPost] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,10 +37,24 @@ const ArticleScreen = () => {
   const [newComment, setNewComment] = useState("");
   const [username, setUsername] = useState(userInfo?.username || "");
   const [comments, setComments] = useState([]);
+  const [audioState, setAudioState] = useState('stopped'); // 'stopped', 'playing', 'paused'
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isSeeking, setIsSeeking] = useState(false);
+  const [wasBackgroundMusicPlaying, setWasBackgroundMusicPlaying] = useState(false);
+  const audioRef = useRef(null);
 
   const { t } = useTranslation();
 
   const defaultImageUrl = "/imgDefault.jpg";
+
+  // Fonction pour formater le temps en MM:SS
+  const formatTime = (time) => {
+    if (isNaN(time)) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -67,6 +84,119 @@ const ArticleScreen = () => {
     
     fetchPost();
   }, [id, userInfo?.uid]);
+
+  // Initialiser l'audio quand le post est chargé
+  useEffect(() => {
+    if (post?.audioUrl) {
+      audioRef.current = new Audio(post.audioUrl);
+      
+      audioRef.current.onended = () => {
+        setAudioState('stopped');
+        setCurrentTime(0);
+        // Remettre la musique de fond si elle était en cours
+        if (wasBackgroundMusicPlaying) {
+          dispatch(setPlaying(true));
+        }
+      };
+      
+      audioRef.current.onerror = () => {
+        setAudioState('stopped');
+        alert("Erreur lors de la lecture audio");
+        // Remettre la musique de fond en cas d'erreur
+        if (wasBackgroundMusicPlaying) {
+          dispatch(setPlaying(true));
+        }
+      };
+
+      audioRef.current.onplay = () => {
+        setAudioState('playing');
+      };
+
+      audioRef.current.onpause = () => {
+        setAudioState('paused');
+      };
+
+      audioRef.current.onloadedmetadata = () => {
+        setDuration(audioRef.current.duration);
+      };
+
+      audioRef.current.ontimeupdate = () => {
+        if (!isSeeking) {
+          setCurrentTime(audioRef.current.currentTime);
+        }
+      };
+    }
+
+    // Cleanup
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+      // Remettre la musique de fond quand on quitte la page
+      if (wasBackgroundMusicPlaying) {
+        dispatch(setPlaying(true));
+      }
+    };
+  }, [post?.audioUrl, isSeeking, wasBackgroundMusicPlaying, dispatch]);
+
+  const handleAudioPlay = () => {
+    if (audioRef.current) {
+      // Vérifier si la musique de fond est en cours et la sauvegarder
+      if (backgroundMusicState) {
+        setWasBackgroundMusicPlaying(true);
+        dispatch(setPlaying(false)); // Couper la musique de fond
+      }
+
+      if (audioState === 'paused') {
+        audioRef.current.play();
+      } else {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play();
+      }
+    }
+  };
+
+  const handleAudioPause = () => {
+    if (audioRef.current && audioState === 'playing') {
+      audioRef.current.pause();
+    }
+  };
+
+  const handleAudioStop = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setAudioState('stopped');
+      setCurrentTime(0);
+      
+      // Remettre la musique de fond si elle était en cours
+      if (wasBackgroundMusicPlaying) {
+        dispatch(setPlaying(true));
+        setWasBackgroundMusicPlaying(false);
+      }
+    }
+  };
+
+  const handleSeek = (e) => {
+    if (audioRef.current && duration) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const percentage = clickX / rect.width;
+      const newTime = percentage * duration;
+      
+      audioRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
+  const handleSeekStart = () => {
+    setIsSeeking(true);
+  };
+
+  const handleSeekEnd = () => {
+    setIsSeeking(false);
+  };
 
   const handleAddComment = async (e) => {
     e.preventDefault();
@@ -153,11 +283,77 @@ const ArticleScreen = () => {
           alt={post.title}
           className="w-full object-cover rounded-md mb-4 shadow-lg"
         />
-        <h1 className="text-2xl md:text-3xl font-bold">{post.title}</h1>
-        <p className="text-sm text-gray-500">
-          Par <span className="text-blue-400 font-semibold">{post.authorName || "Anonyme"}</span>
-          {post.createdAt ? ` | ${new Date(post.createdAt.toDate()).toLocaleDateString()}` : ""}
-        </p>
+        <div className="flex justify-between items-start gap-4">
+          <h1 className="text-2xl md:text-3xl font-bold flex-1">{post.title}</h1>
+          
+          {/* Contrôles audio */}
+          {post?.audioUrl && (
+            <div className="flex flex-col gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-md transition-colors min-w-[200px] shadow-md">
+              <div className="flex items-center gap-2">
+                <Volume2 className="w-4 h-4" />
+                <span className="text-sm">Version audio</span>
+                
+                {/* Bouton Play/Pause */}
+                <button
+                  onClick={audioState === 'playing' ? handleAudioPause : handleAudioPlay}
+                  className="p-1 hover:bg-blue-800 rounded transition-colors"
+                  title={audioState === 'playing' ? 'Pause' : 'Lecture'}
+                >
+                  {audioState === 'playing' ? (
+                    <Pause className="w-4 h-4" />
+                  ) : (
+                    <Play className="w-4 h-4" />
+                  )}
+                </button>
+                
+                {/* Bouton Stop */}
+                <button
+                  onClick={handleAudioStop}
+                  className="p-1 hover:bg-blue-800 rounded transition-colors"
+                  title="Stop"
+                >
+                  <Square className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Barre de progression */}
+              <div className="w-full">
+                <div 
+                  className="w-full h-2 bg-blue-800 rounded-full cursor-pointer relative"
+                  onClick={handleSeek}
+                  onMouseDown={handleSeekStart}
+                  onMouseUp={handleSeekEnd}
+                  onTouchStart={handleSeekStart}
+                  onTouchEnd={handleSeekEnd}
+                >
+                  <div 
+                    className="h-full bg-white rounded-full transition-all duration-100"
+                    style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
+                  ></div>
+                </div>
+                
+                {/* Temps écoulé / total */}
+                <div className="flex justify-between text-xs mt-1">
+                  <span>{formatTime(currentTime)}</span>
+                  <span>{formatTime(duration)}</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col gap-1">
+          <p className="text-sm text-gray-500">
+            {t('article.by')} <span className="text-black font-semibold">{post.authorName || t('article.anonymous')}</span>
+            {post.createdAt ? ` | ${new Date(post.createdAt.toDate()).toLocaleDateString()}` : ""}
+          </p>
+          
+          {post?.audioUrl && post?.narrator && (
+            <p className="text-sm text-gray-500 italic">
+             {t('article.voice')} : <span className="text-black font-semibold">{post.narrator}</span>
+            </p>
+          )}
+        </div>
+
         <div
           className="text-base md:text-lg w-full break-words"
           dangerouslySetInnerHTML={{ __html: post.content }}
@@ -213,7 +409,7 @@ const ArticleScreen = () => {
           className="flex items-center text-lg justify-center mt-10 text-[#34B0CA] hover:text-[#34B0CA]/70 transition"
         >
           <ArrowLeft className="w-5 h-5 mr-2 text-[#34B0CA]" />
-          Retour
+          {t('article.back')}
         </button>
       </div>
 

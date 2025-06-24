@@ -4,7 +4,7 @@ import RandomQuote from "@/components/RandomQuote";
 import { useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import PostGrid from "@/components/PostGrid";
 import { useSelector } from "react-redux";
 
@@ -70,12 +70,20 @@ const HomeScreen = () => {
     }
   };
 
+  // Mémoriser les posts pour éviter les re-renders inutiles
+  const sortedPosts = useMemo(() => {
+    return [...posts].sort((a, b) => {
+      const dateA = a.createdAt?.toDate?.() || new Date(a.createdAt) || new Date(0);
+      const dateB = b.createdAt?.toDate?.() || new Date(b.createdAt) || new Date(0);
+      return dateB - dateA;
+    });
+  }, [posts]);
 
   return (
     <div className="bg-[#E2DFD7]/70 lg:pb-11 pb-0">
       <Hero />
       <AboutSection />
-      <PostGrid posts={posts} onLike={handleLike} userInfo={userInfo} />
+      <PostGrid posts={sortedPosts} onLike={handleLike} userInfo={userInfo} />
       <RandomQuote />
     </div>
   );
