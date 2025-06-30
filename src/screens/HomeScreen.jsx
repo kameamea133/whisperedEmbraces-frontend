@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
 import RandomQuote from "@/components/RandomQuote";
+import SEOHead from "@/components/SEOHead";
 import { useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs, doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
@@ -80,12 +81,19 @@ const HomeScreen = () => {
   }, [posts]);
 
   return (
-    <div className="bg-[#E2DFD7]/70 lg:pb-11 pb-0">
-      <Hero />
-      <AboutSection />
-      <PostGrid posts={sortedPosts} onLike={handleLike} userInfo={userInfo} />
-      <RandomQuote />
-    </div>
+    <>
+      <SEOHead 
+        title="Accueil"
+        description="Découvrez une collection de poèmes et textes littéraires partagés par notre communauté. Créez et partagez vos propres étreintes éphémères."
+        keywords="poésie, textes, littérature, partage, communauté, inspiration, écriture créative"
+      />
+      <div className="bg-[#E2DFD7]/70 lg:pb-11 pb-0">
+        <Hero />
+        <AboutSection />
+        <PostGrid posts={sortedPosts} onLike={handleLike} userInfo={userInfo} />
+        <RandomQuote />
+      </div>
+    </>
   );
 };
 
