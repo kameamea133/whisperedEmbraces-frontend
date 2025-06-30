@@ -12,8 +12,8 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[50vh] md:min-h-[75vh] lg:min-h-screen overflow-hidden">
-      {/* Video background */}
-      <video
+      {/* Video background avec fade in */}
+      <motion.video
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
         loop
@@ -21,16 +21,16 @@ const Hero = () => {
         playsInline
         preload="none"
         poster="/imgDefault2.png"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoaded ? 1 : 0 }}
+        transition={{ duration: 2 }}
       >
         <source src="/Bgvideo-optimized.mp4" type="video/mp4" />
         {t('hero.videoError')}
-      </video>
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
+      </motion.video>
 
       {/* Hero text */}
-      <div className="absolute flex flex-col justify-center px-4 pt-[30%] md:px-8 md:py-16 lg:px-10 md:top-[25%] z-20 text-white text-left">
+      <div className="absolute flex flex-col justify-center px-4 pt-[30%] md:px-8 md:py-16 lg:px-10 md:top-[25%] z-30 text-white text-left">
         <motion.h1
           className="text-[5rem] md:text-[6rem] lg:text-[8rem] mb-[-30px] font-whisper leading-tight text-shadow"
           initial={{ opacity: 0 }}

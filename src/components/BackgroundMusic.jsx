@@ -47,6 +47,7 @@ const BackgroundMusic = () => {
       <motion.button
         onClick={togglePlayPauseHandler}
         className="p-4 rounded-full bg-gradient-to-r from-blue-400 to-teal-500 text-white shadow-lg focus:outline-none hover:bg-opacity-90"
+        aria-label={isPlaying ? "Pause la musique de fond" : "Joue la musique de fond"}
         whileHover={{ scale: 1.2 }}
         animate={{
           scale: [1, 1.1, 1],
