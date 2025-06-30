@@ -20,9 +20,9 @@ const Hero = () => {
         muted
         playsInline
         preload="none"
-        poster="/imgDefault.jpg"
+        poster="/imgDefault2.png"
       >
-        <source src="/bgVideo-optimized.mp4" type="video/mp4" />
+        <source src="/Bgvideo-optimized.mp4" type="video/mp4" />
         {t('hero.videoError')}
       </video>
 
