@@ -2,6 +2,23 @@
   "redirects": [
     {
       "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "etreintes-ephemeres.vercel.app"
+        }
+      ],
+      "destination": "https://www.etreintes-ephemeres.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "etreintes-ephemeres.com"
+        }
+      ],
       "destination": "https://www.etreintes-ephemeres.com/$1",
       "permanent": true
     }
