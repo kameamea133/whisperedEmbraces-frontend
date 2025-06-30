@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://etreintes-ephemeres.com/sitemap.xml
+
+# Crawl-delay pour éviter de surcharger le serveur
+Crawl-delay: 1
+
+# Empêcher l'indexation des pages privées
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /posts 

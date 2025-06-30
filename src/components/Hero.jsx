@@ -27,7 +27,7 @@ const Hero = () => {
       </video>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
+      <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
 
       {/* Hero text */}
       <div className="absolute flex flex-col justify-center px-4 pt-[30%] md:px-8 md:py-16 lg:px-10 md:top-[25%] z-20 text-white text-left">
