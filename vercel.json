@@ -1,1 +1,9 @@
-{}
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://www.etreintes-ephemeres.com/$1",
+      "permanent": true
+    }
+  ]
+}
