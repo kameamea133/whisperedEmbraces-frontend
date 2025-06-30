@@ -19,10 +19,10 @@ const Hero = () => {
         loop
         muted
         playsInline
-        preload="auto"
-        onLoadedData={() => setIsLoaded(true)}
+        preload="none"
+        poster="/imgDefault.jpg"
       >
-        <source src="/bgVideo.mp4" type="video/mp4" />
+        <source src="/bgVideo-optimized.mp4" type="video/mp4" />
         {t('hero.videoError')}
       </video>
 
