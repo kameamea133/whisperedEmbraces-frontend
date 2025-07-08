@@ -42,7 +42,6 @@ const PostCreateForm = () => {
         formData.append("upload_preset", "my_preset"); 
 
         const response = await fetch("https://api.cloudinary.com/v1_1/dhp8teilh/image/upload", {
-
           method: "POST",
           body: formData,
         });
@@ -51,13 +50,15 @@ const PostCreateForm = () => {
         publicId = data.public_id;
       }
 
-      
       await addDoc(collection(db, "posts"), {
         title: title,
         content: content,
         language: language,
         imageUrl: imageUrl,
         publicId: publicId,
+        audioUrl: null,
+        audioPublicId: null,
+        narrator: null,
         createdAt: new Date(),
         allowSharing,
         authorId: userInfo?.uid,
@@ -163,7 +164,6 @@ const PostCreateForm = () => {
       </AnimatePresence>
     </div>
   );
-
 };
 
 export default PostCreateForm;

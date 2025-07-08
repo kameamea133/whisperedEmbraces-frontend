@@ -1,18 +1,26 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Pause, Music} from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePlayPause, setPlaying } from '../slices/musicSlice';
 
 const BackgroundMusic = () => {
-  const audioRef = useRef(new Audio('/bgMusic.mp3'));
+  const audioRef = useRef(null);
   const isPlaying = useSelector(state => state.music.isPlaying);
   const dispatch = useDispatch();
 
+  // Initialiser l'audio seulement quand nécessaire
+  useEffect(() => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio('/bgMusic.mp3');
+      audioRef.current.loop = true;
+      audioRef.current.volume = 1;
+    }
+  }, []);
+
   useEffect(() => {
     const audio = audioRef.current;
-    audio.loop = true;
-    audio.volume = 1;
+    if (!audio) return;
 
     if (isPlaying) {
       audio.play().catch(err => {
@@ -24,19 +32,22 @@ const BackgroundMusic = () => {
     }
 
     return () => {
-      audio.pause();
+      if (audio) {
+        audio.pause();
+      }
     };
   }, [isPlaying, dispatch]);
 
-  const togglePlayPauseHandler = () => {
+  const togglePlayPauseHandler = useCallback(() => {
     dispatch(togglePlayPause());
-  };
+  }, [dispatch]);
 
   return (
     <div className="fixed bottom-4 right-8 z-50">
       <motion.button
         onClick={togglePlayPauseHandler}
         className="p-4 rounded-full bg-gradient-to-r from-blue-400 to-teal-500 text-white shadow-lg focus:outline-none hover:bg-opacity-90"
+        aria-label={isPlaying ? "Pause la musique de fond" : "Joue la musique de fond"}
         whileHover={{ scale: 1.2 }}
         animate={{
           scale: [1, 1.1, 1],

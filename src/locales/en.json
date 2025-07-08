@@ -182,6 +182,12 @@
     "title": "Comments:",
     "by": "By",
     "unknownDate": "Unknown date"
+  },
+  "article": {
+    "back": "Back",
+    "by": "By",
+    "voice": "Voice",
+    "anonymous": "Anonymous"
   }
   }
   

@@ -50,17 +50,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 text-shadow left-0 h-[9rem] w-full z-50 sm:text-center text-white transition-colors duration-700 ${navbarBg ? 'bg-gray-900/90 shadow-md' : 'bg-transparent'}`}>
-      <div className="px-6 py-1 flex justify-between items-center font-raleway">
+    <nav className={`fixed top-0 text-shadow left-0 h-[6rem] w-full z-50 sm:text-center text-white transition-colors duration-700 ${navbarBg ? 'bg-gray-900/90 shadow-md' : 'bg-transparent'}`}>
+      <div className="px-6 py-2 flex justify-between items-center font-raleway">
         {/* Logo */}
         <div className="relative flex items-center">
           <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img src="/logo12.png" alt="logo" className="h-[110px] lg:h-[140px] object-cover rounded-full" />
+            <img src="/logo12.png" alt="logo" className="h-[85px] lg:h-[95px] object-cover rounded-full" />
           </Link>
         </div>
 
         {/* Menu Desktop */}
-        <ul className={`hidden sm:flex space-x-6 text-base lg:text-base uppercase ${userInfo ? 'lg:ml-[150px]' : ''}`}>
+        <ul className={`hidden sm:flex space-x-6 text-sm lg:text-base uppercase ${userInfo ? 'lg:ml-[120px]' : ''}`}>
           <li><Link to={{ pathname: "/" }} state={{ scrollTo: "etreintes-section" }}  className="relative  text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">{t('navbar.embraces')}</Link></li>
           <li>
             <Link to={{ pathname: "/" }} state={{ scrollTo: "randomQuote" }}  className="relative  text-white before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-0 before:h-[2px] before:bg-white before:transition-all before:duration-700 hover:before:w-full">
@@ -76,19 +76,19 @@ const Navbar = () => {
         </ul>
 
         {/* Login / Logout button */}
-        <div className="hidden md:flex space-x-4 items-center">
+        <div className="hidden md:flex space-x-3 items-center">
           {userInfo ? (
-            <div className="flex items-center gap-4 lg:text-base uppercase">
+            <div className="flex items-center gap-3 text-sm lg:text-base uppercase">
               <p className="bg-gray-400/20 shadow-xl px-2 py-1 rounded-md">&quot; {t('navbar.hello')} {userInfo.username} &quot;</p>
-              <Button onClick={handleLogout} className="text-base text-shadow px-2 py-1 hover:shadow-xl uppercase bg-transparent">{t('navbar.logout')}</Button>
+              <Button onClick={handleLogout} className="text-sm lg:text-base text-shadow px-2 py-1 hover:shadow-xl uppercase bg-transparent">{t('navbar.logout')}</Button>
             </div>
           ) : (
-            <Button onClick={handleLoginClick} className="text-base uppercase bg-transparent text-shadow" >{t('navbar.login')}</Button>
+            <Button onClick={handleLoginClick} className="text-sm lg:text-base uppercase bg-transparent text-shadow" >{t('navbar.login')}</Button>
           )}
-          <Link to="/contact"><Mail className="w-6 h-6 text-white" /></Link>
-        <div className="flex gap-2 ml-4">
-          <button onClick={() => changeLanguage('fr')} className="text-shadow">FR</button>
-          <button onClick={() => changeLanguage('en')} className="text-shadow">EN</button>
+          <Link to="/contact"><Mail className="w-5 h-5 text-white" /></Link>
+        <div className="flex gap-2 ml-3">
+          <button onClick={() => changeLanguage('fr')} className="text-shadow text-sm">FR</button>
+          <button onClick={() => changeLanguage('en')} className="text-shadow text-sm">EN</button>
         </div>
         </div>
 
@@ -96,7 +96,7 @@ const Navbar = () => {
 
         {/* Toggle Menu for Mobile */}
         <button className="md:hidden flex items-center justify-center p-2" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8 text-white" />}
+          {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 text-white" />}
         </button>
       </div>
 
