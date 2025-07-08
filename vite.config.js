@@ -1,15 +1,19 @@
-import path from "path"
+import { fileURLToPath, URL } from "url"
 
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
+import { visualizer } from "rollup-plugin-visualizer"
 
 
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    visualizer({ open: true })
+  ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
   server: {
@@ -17,4 +21,22 @@ export default defineConfig({
       '/api': 'http://localhost:5000', 
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('firebase')) {
+              return 'vendor_firebase';
+            }
+            if (id.includes('framer-motion')) {
+              return 'vendor_framer-motion';
+            }
+            // Regrouper le reste des vendors dans un seul fichier
+            return 'vendor_others';
+          }
+        }
+      }
+    }
+  }
 })

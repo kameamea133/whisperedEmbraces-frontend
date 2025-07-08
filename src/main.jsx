@@ -1,21 +1,23 @@
-import { StrictMode } from 'react';
+import { StrictMode, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
-import HomeScreen from './screens/HomeScreen';
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import PostsScreen from './screens/PostsScreen';
-import ArticleScreen from './screens/ArticleScreen';
-import Conditions from './screens/conditionsScreen';
-import ContactScreen from './screens/ContactScreen';
-import PrivacyPolicy from './screens/PrivacyPolicy';
+import Spinner from './components/Spinner';
 import store from './store';
 import PrivateRoute from './components/PrivateRoute';
 import { Provider } from 'react-redux';
 import "./lib/i18n"
 import './index.css';
 import App from './App.jsx';
+
+const HomeScreen = lazy(() => import('./screens/HomeScreen'));
+const LoginScreen = lazy(() => import('./screens/LoginScreen'));
+const RegisterScreen = lazy(() => import('./screens/RegisterScreen'));
+const ProfileScreen = lazy(() => import('./screens/ProfileScreen'));
+const PostsScreen = lazy(() => import('./screens/PostsScreen'));
+const ArticleScreen = lazy(() => import('./screens/ArticleScreen'));
+const Conditions = lazy(() => import('./screens/conditionsScreen'));
+const ContactScreen = lazy(() => import('./screens/ContactScreen'));
+const PrivacyPolicy = lazy(() => import('./screens/PrivacyPolicy'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,7 +41,9 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <StrictMode>
-      <RouterProvider router={router} />
+      <Suspense fallback={<Spinner />}>
+        <RouterProvider router={router} />
+      </Suspense>
     </StrictMode>
   </Provider>
 );
