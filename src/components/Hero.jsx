@@ -32,7 +32,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/20 pointer-events-none z-10" />
 
       {/* Hero text */}
-      <div className="absolute flex flex-col justify-center px-4 pt-[30%] md:px-8 md:py-16 lg:px-10 md:top-[25%] z-30 text-white text-left">
+      <div className="absolute flex flex-col justify-center px-4 pt-[20%] md:px-8 md:py-16 lg:px-10 md:top-[25%] z-30 text-white text-left">
         <motion.h1
           className="text-[5rem] md:text-[6rem] lg:text-[8rem] mb-[-30px] font-whisper leading-tight text-shadow"
           initial={{ opacity: 0 }}
@@ -50,7 +50,7 @@ const Hero = () => {
           {t('hero.title2')}
         </motion.h1>
         <motion.p
-          className="text-[2.3rem] leading-[1] h-[20px] md:text-[6rem] lg:text-[3rem] font-whisper md:leading-tight text-shadow"
+          className="text-[1.9rem] leading-[1] md:text-[2.5rem] lg:text-[3rem] font-whisper md:leading-tight text-shadow"
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 5, delay: 3.5 }}
