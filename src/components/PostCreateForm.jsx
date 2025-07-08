@@ -81,87 +81,168 @@ const PostCreateForm = () => {
   };
 
   return (
-    <div className="relative mb-5 w-full max-w-3xl mx-auto">
-      <Button onClick={() => setIsFormVisible(!isFormVisible)} className="flex items-center ml-16 space-x-2 lg:ml-10">
-        <Plus className="w-5 h-5" />
-        <span>{t('postForm.createPost')}</span>
-      </Button>
+    // NOUVEAU : Container en colonne avec padding responsive
+    <div className="my-16 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col items-center space-y-6">
+        
+        {/* BOUTON "Créer un texte" */}
+        <Button 
+          onClick={() => setIsFormVisible(!isFormVisible)} 
+          className="flex items-center space-x-2 px-6 py-3"
+        >
+          <Plus className="w-5 h-5" />
+          <span>{t('postForm.createPost')}</span>
+        </Button>
 
-      <AnimatePresence>
-        {isFormVisible && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3 }}
-            className="mt-4 p-6 border rounded-lg bg-white shadow-lg space-y-4"
-          >
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label>{t('postForm.title')}</label>
-                <input
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="block w-full border rounded px-3 py-2"
-                />
-              </div>
-              <div>
-                <label>{t('postForm.content')}</label>
-                <ReactQuill value={content} onChange={setContent} className="h-50 break-words" />
-              </div>
-              <div>
-                <label>{t('postForm.language')}</label>
-                <select
-                  value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
-                  className="block w-full border rounded px-3 py-2"
-                >
-                  <option value="fr">{t('postForm.languageFrench')}</option>
-                  <option value="en">{t('postForm.languageEnglish')}</option>
-                </select>
-              </div>
+        {/* FORMULAIRE */}
+        <AnimatePresence>
+          {isFormVisible && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="w-full p-4 sm:p-6 border rounded-lg bg-white shadow-lg"
+            >
+              <form onSubmit={handleSubmit} className="space-y-6">
+                
+                {/* TITRE */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('postForm.title')}
+                  </label>
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="block w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Entrez le titre de votre texte..."
+                  />
+                </div>
 
-              <div>
-                <label>
+                {/* CONTENU - NOUVEAU : Container responsive pour ReactQuill */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('postForm.content')}
+                  </label>
+                  <div className="w-full overflow-hidden">
+                    <div className="quill-container">
+                      <ReactQuill 
+                        value={content} 
+                        onChange={setContent} 
+                        className="h-[18rem] sm:h-[20rem] lg:h-[22rem]"
+                        modules={{
+                          toolbar: [
+                            [{ 'header': [1, 2, false] }],
+                            ['bold', 'italic', 'underline'],
+                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                            ['link'],
+                            ['clean']
+                          ],
+                        }}
+                        formats={[
+                          'header', 'bold', 'italic', 'underline',
+                          'list', 'bullet', 'link'
+                        ]}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* LANGUE */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('postForm.language')}
+                  </label>
+                  <select
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
+                    className="block w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                  >
+                    <option value="fr">{t('postForm.languageFrench')}</option>
+                    <option value="en">{t('postForm.languageEnglish')}</option>
+                  </select>
+                </div>
+
+                {/* PARTAGE AUTORISÉ */}
+                <div className="flex items-center">
                   <input
                     type="checkbox"
+                    id="allowSharing"
                     checked={allowSharing}
                     onChange={() => setAllowSharing(!allowSharing)}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
-                  {t('postForm.allowSharing')}
-                </label>
-              </div>
+                  <label htmlFor="allowSharing" className="ml-2 text-sm text-gray-700">
+                    {t('postForm.allowSharing')}
+                  </label>
+                </div>
 
-              <div>
-                <label>{t('postForm.headerImage')}</label>
-                <input type="file" onChange={handleImageChange} className="block w-full" />
-              </div>
-              <Button type="submit" disabled={isLoading} className="mr-2">
-                {isLoading ? t('postForm.sending') : t('postForm.submit')}
-              </Button>
-              <Button type="button" onClick={() => setShowPreview(!showPreview)}>
-                {showPreview ? t('postForm.hidePreview') : t('postForm.preview')}
-              </Button>
-              {error && <p className="text-red-500">{error}</p>}
-            </form>
-
-            {showPreview && (
-              <div className="mt-6 p-4 border rounded-lg bg-gray-50">
-                {headerImage && (
-                  <img
-                    src={URL.createObjectURL(headerImage)}
-                    alt={t('postForm.headerImage')}
-                    className="w-full h-auto object-cover rounded-md mb-4 shadow-lg"
+                {/* IMAGE D'EN-TÊTE */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('postForm.headerImage')}
+                  </label>
+                  <input 
+                    type="file" 
+                    onChange={handleImageChange} 
+                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    accept="image/*"
                   />
+                </div>
+
+                {/* BOUTONS D'ACTION */}
+                <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                  <Button 
+                    type="submit" 
+                    disabled={isLoading} 
+                    className="flex-1 bg-blue-600 hover:bg-blue-700"
+                  >
+                    {isLoading ? t('postForm.sending') : t('postForm.submit')}
+                  </Button>
+                  <Button 
+                    type="button" 
+                    onClick={() => setShowPreview(!showPreview)}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    {showPreview ? t('postForm.hidePreview') : t('postForm.preview')}
+                  </Button>
+                </div>
+
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-md">
+                    <p className="text-red-600 text-sm">{error}</p>
+                  </div>
                 )}
-                <h2 className="text-xl font-bold">{title}</h2>
-                <div dangerouslySetInnerHTML={{ __html: content }} className="text-base" />
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </form>
+
+              {/* PRÉVISUALISATION */}
+              {showPreview && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="mt-6 p-4 border rounded-lg bg-gray-50 overflow-hidden"
+                >
+                  {headerImage && (
+                    <img
+                      src={URL.createObjectURL(headerImage)}
+                      alt={t('postForm.headerImage')}
+                      className="w-full h-48 sm:h-64 object-cover rounded-md mb-4 shadow-lg"
+                    />
+                  )}
+                  <h2 className="text-xl font-bold mb-3 break-words">{title || "Titre de votre texte"}</h2>
+                  <div 
+                    dangerouslySetInnerHTML={{ __html: content || "<p>Votre contenu apparaîtra ici...</p>" }} 
+                    className="prose prose-sm sm:prose max-w-none break-words"
+                  />
+                </motion.div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

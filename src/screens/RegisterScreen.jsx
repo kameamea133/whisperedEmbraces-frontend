@@ -8,6 +8,10 @@ import { auth, db } from '@/firebaseConfig';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useTranslation } from 'react-i18next';
+import emailjs from 'emailjs-com';
+// NOUVEAU : Importer les icônes pour la popup
+import { CheckCircle, Mail, ArrowRight } from 'lucide-react';
+import { useEffect } from 'react';
 
 const RegisterScreen = () => {
     const [username, setUsername] = useState('');
@@ -16,9 +20,102 @@ const RegisterScreen = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    // NOUVEAU : État pour la popup de confirmation
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const [countdown, setCountdown] = useState(3);
 
     const navigate = useNavigate();
     const { t } = useTranslation();
+
+    // NOUVEAU : Effet pour le countdown de redirection
+    useEffect(() => {
+        let timer;
+        if (showSuccessPopup && countdown > 0) {
+            timer = setTimeout(() => {
+                setCountdown(countdown - 1);
+            }, 1000);
+        } else if (showSuccessPopup && countdown === 0) {
+            navigate('/login');
+        }
+        return () => clearTimeout(timer);
+    }, [showSuccessPopup, countdown, navigate]);
+
+    // FONCTION 1 : Notification admin
+    const sendAdminNotification = async (userData) => {
+        try {
+            const templateParams = {
+                to_email: 'monnier1977@gmail.com',
+                email_subject: `🔔 Nouvel utilisateur inscrit - ${userData.username}`,
+                email_content: `Bonjour,
+
+Un nouvel utilisateur vient de s'inscrire sur Étreintes Éphémères !
+
+📝 Détails de l'inscription :
+- Nom d'utilisateur : ${userData.username}
+- Email : ${userData.email}
+- Date d'inscription : ${userData.registration_date}
+
+Vous pouvez maintenant voir cette personne dans votre base d'utilisateurs.
+
+---
+Notification automatique d'Étreintes Éphémères`,
+                username: userData.username,
+                user_email: userData.email,
+                registration_date: userData.registration_date
+            };
+
+            await emailjs.send(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,        
+                import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID,  
+                templateParams,
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            );
+
+            console.log('✅ Notification admin envoyée');
+        } catch (error) {
+            console.error('❌ Erreur notification admin:', error);
+        }
+    };
+
+    // FONCTION 2 : Email de bienvenue utilisateur
+    const sendWelcomeEmail = async (userData) => {
+        try {
+            const templateParams = {
+                to_email: userData.email,
+                email_subject: `🎉 Bienvenue sur Étreintes Éphémères, ${userData.username} !`,
+                email_content: `Bonjour ${userData.username},
+
+Bienvenue dans notre communauté de poésie et d'écriture créative ! 🌟
+
+Votre compte a été créé avec succès le ${userData.registration_date}. Vous pouvez maintenant :
+
+✨ Créer et partager vos textes poétiques
+💫 Découvrir les créations de notre communauté  
+🔊 Transformez votre texte en audio sur simple demande
+
+🚀 Commencez votre voyage littéraire en vous connectant :
+https://etreintes-ephemeres.com/login
+
+Merci de rejoindre notre univers d'étreintes éphémères.
+
+L'équipe d'Étreintes Éphémères 💙`,
+                username: userData.username,
+                user_email: userData.email,
+                registration_date: userData.registration_date
+            };
+
+            await emailjs.send(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,        
+                import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID,  // Même template !
+                templateParams,
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            );
+
+            console.log('✅ Email de bienvenue envoyé');
+        } catch (error) {
+            console.error('❌ Erreur email bienvenue:', error);
+        }
+    };
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -30,27 +127,49 @@ const RegisterScreen = () => {
         setLoading(true);
 
         try {
-            
+            // 1. Créer le compte Firebase Auth
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            
-            await setDoc(doc(db, "users", user.uid), {
+            // 2. Préparer les données utilisateur avec la date formatée
+            const userData = {
                 username: username,
                 email: user.email,
-            });
+                createdAt: new Date(),
+                uid: user.uid,
+                registration_date: new Date().toLocaleDateString('fr-FR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+            };
 
-           
-            navigate('/login'); 
+            // 3. Sauvegarder dans Firestore
+            await setDoc(doc(db, "users", user.uid), userData);
+
+            // 4. Envoyer les DEUX emails
+            await sendAdminNotification(userData);
+            await sendWelcomeEmail(userData);
+
+            // 5. NOUVEAU : Afficher la popup de confirmation
+            setShowSuccessPopup(true);
+            
         } catch (err) {
             setError(err.message);
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
+    // NOUVEAU : Fonction pour rediriger immédiatement
+    const handleImmediateRedirect = () => {
+        navigate('/login');
+    };
+
     const closeNotification = () => {
-        setError(null); 
+        setError(null);
     };
 
     return (
@@ -128,6 +247,52 @@ const RegisterScreen = () => {
 
                 {error && <SoftNotification message={error} onClose={closeNotification} />}
             </FormContainer>
+
+            {/* NOUVELLE POPUP DE CONFIRMATION */}
+            {showSuccessPopup && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-lg p-8 max-w-md w-full mx-auto shadow-2xl">
+                        <div className="text-center">
+                            {/* Icône de succès */}
+                            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                                <CheckCircle className="h-8 w-8 text-green-600" />
+                            </div>
+                            
+                            {/* Titre */}
+                            <h3 className="text-lg font-medium text-gray-900 mb-2">
+                                🎉 Compte créé avec succès !
+                            </h3>
+                            
+                            {/* Message de confirmation */}
+                            <p className="text-gray-600 mb-4">
+                                Bonjour <strong>{username}</strong> ! Votre compte a été créé.
+                            </p>
+                            
+                            {/* Statut des emails */}
+                            <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                                <div className="flex items-center text-blue-700 text-sm">
+                                    <Mail className="h-4 w-4 mr-2" />
+                                    <span>Un email de bienvenue vous a été envoyé</span>
+                                </div>
+                            </div>
+                            
+                            {/* Countdown et boutons */}
+                            <p className="text-sm text-gray-500 mb-4">
+                                Redirection automatique dans <span className="font-bold text-[#34B0CA]">{countdown}</span> seconde{countdown !== 1 ? 's' : ''}
+                            </p>
+                            
+                            {/* Bouton de redirection immédiate */}
+                            <Button 
+                                onClick={handleImmediateRedirect}
+                                className="w-full bg-[#34B0CA] hover:bg-[#34B0CA]/80 text-white flex items-center justify-center"
+                            >
+                                Se connecter maintenant
+                                <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 }

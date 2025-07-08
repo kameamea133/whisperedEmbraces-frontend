@@ -308,36 +308,33 @@ const ArticleScreen = () => {
             
             {/* Contrôles audio */}
             {post?.audioUrl && (
-              <div className="flex flex-col gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-md transition-colors min-w-[200px] shadow-md">
-                <div className="flex items-center gap-2">
-                  <Volume2 className="w-4 h-4" />
-                  <span className="text-sm">Version audio</span>
+              <div className="flex flex-col gap-2 bg-blue-600 hover:bg-blue-700 text-white px-2 sm:px-4 py-2 sm:py-3 rounded-md transition-colors w-full max-w-[250px] sm:max-w-[280px] shadow-md">
+                <div className="flex items-center gap-1 sm:gap-2">
+                  <Volume2 className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm truncate">Audio</span>
                   
-                  {/* Bouton Play/Pause */}
+                  {/* Boutons plus petits sur mobile */}
                   <button
                     onClick={audioState === 'playing' ? handleAudioPause : handleAudioPlay}
-                    className="p-1 hover:bg-blue-800 rounded transition-colors"
-                    title={audioState === 'playing' ? 'Pause' : 'Lecture'}
+                    className="p-0.5 sm:p-1 hover:bg-blue-800 rounded transition-colors flex-shrink-0"
                   >
                     {audioState === 'playing' ? (
-                      <Pause className="w-4 h-4" />
+                      <Pause className="w-3 h-3 sm:w-4 sm:h-4" />
                     ) : (
-                      <Play className="w-4 h-4" />
+                      <Play className="w-3 h-3 sm:w-4 sm:h-4" />
                     )}
                   </button>
                   
-                  {/* Bouton Stop */}
                   <button
                     onClick={handleAudioStop}
-                    className="p-1 hover:bg-blue-800 rounded transition-colors"
-                    title="Stop"
+                    className="p-0.5 sm:p-1 hover:bg-blue-800 rounded transition-colors flex-shrink-0"
                   >
-                    <Square className="w-4 h-4" />
+                    <Square className="w-3 h-3 sm:w-4 sm:h-4" />
                   </button>
                 </div>
-
+                
                 {/* Barre de progression */}
-                <div className="w-full">
+                <div className="w-full min-w-0">
                   <div 
                     className="w-full h-2 bg-blue-800 rounded-full cursor-pointer relative"
                     onClick={handleSeek}
@@ -354,8 +351,8 @@ const ArticleScreen = () => {
                   
                   {/* Temps écoulé / total */}
                   <div className="flex justify-between text-xs mt-1">
-                    <span>{formatTime(currentTime)}</span>
-                    <span>{formatTime(duration)}</span>
+                    <span className="tabular-nums">{formatTime(currentTime)}</span>
+                    <span className="tabular-nums">{formatTime(duration)}</span>
                   </div>
                 </div>
               </div>
