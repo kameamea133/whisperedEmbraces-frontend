@@ -369,6 +369,76 @@ const ArticleScreen = () => {
                {t('article.voice')} : <span className="text-black font-semibold">{post.narrator}</span>
               </p>
             )}
+            
+            {/* Crédits - depuis la base de données */}
+            {post?.credits && (
+              <div className="text-xs text-gray-400 italic mt-2 border-l-2 border-gray-300 pl-3">
+                <p className="text-sm font-semibold text-gray-600 mb-2">Crédits</p>
+                
+                {/* Paragraphes personnalisés optionnels */}
+                {post.credits.paragraph1 && (
+                  <p className="mb-1">{post.credits.paragraph1}</p>
+                )}
+                {post.credits.paragraph2 && (
+                  <p className="mb-1">{post.credits.paragraph2}</p>
+                )}
+                
+                {/* Crédits musicaux selon le type */}
+                {/* Format Uppbeat */}
+                {post.credits.musicType === "uppbeat" && post.credits.musicCredits && (
+                  <>
+                    {post.credits.musicCredits.uppbeatText && (
+                      <p className="mb-1 text-black/80">{post.credits.musicCredits.uppbeatText}</p>
+                    )}
+                    {post.credits.musicCredits.uppbeatUrl && (
+                      <p>
+                        <a href={post.credits.musicCredits.uppbeatUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                          {post.credits.musicCredits.uppbeatUrl}
+                        </a>
+                      </p>
+                    )}
+                  </>
+                )}
+                
+                {/* Format détaillé */}
+                {post.credits.musicType === "detailed" && post.credits.musicCredits && (
+                  <>
+                    {post.credits.musicCredits.song && (
+                      <p><strong>Song:</strong> {post.credits.musicCredits.song}</p>
+                    )}
+                    {post.credits.musicCredits.composer && (
+                      <p><strong>Composer:</strong> {post.credits.musicCredits.composer}</p>
+                    )}
+                    {post.credits.musicCredits.website && (
+                      <p><strong>Website:</strong> <a href={post.credits.musicCredits.website} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{post.credits.musicCredits.website}</a></p>
+                    )}
+                    {post.credits.musicCredits.license && post.credits.musicCredits.licenseUrl && (
+                      <p><strong>License:</strong> <a href={post.credits.musicCredits.licenseUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{post.credits.musicCredits.license}</a></p>
+                    )}
+                    {post.credits.musicCredits.poweredBy && post.credits.musicCredits.poweredByUrl && (
+                      <p><strong>Music powered by:</strong> <a href={post.credits.musicCredits.poweredByUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{post.credits.musicCredits.poweredBy}</a></p>
+                    )}
+                  </>
+                )}
+                
+                {/* Format simple */}
+                {post.credits.musicType === "simple" && post.credits.musicCredits && (
+                  <>
+                    {post.credits.musicCredits.song && (
+                      <p><strong>Song:</strong> {post.credits.musicCredits.song}</p>
+                    )}
+                    {post.credits.musicCredits.composer && (
+                      <p><strong>Composer:</strong> {post.credits.musicCredits.composer}</p>
+                    )}
+                  </>
+                )}
+                
+                {/* Format personnalisé */}
+                {post.credits.musicType === "custom" && post.credits.musicCredits && post.credits.musicCredits.customText && (
+                  <div dangerouslySetInnerHTML={{ __html: post.credits.musicCredits.customText }} />
+                )}
+              </div>
+            )}
           </div>
 
           <div
