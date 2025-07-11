@@ -35,60 +35,89 @@ const Conditions = lazy(() => import('./screens/conditionsScreen'));
 const ContactScreen = lazy(() => import('./screens/ContactScreen'));
 const PrivacyPolicy = lazy(() => import('./screens/PrivacyPolicy'));
 
-// Composant de chargement
-const LoadingSpinner = () => (
-  <div className="flex items-center justify-center min-h-screen">
-    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#34B0CA]"></div>
-  </div>
-);
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} element={
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#34B0CA]"></div>
+          </div>
+        }>
           <HomeScreen />
         </Suspense>
       } />
       <Route path="/login" element={
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#34B0CA]"></div>
+          </div>
+        }>
           <LoginScreen />
         </Suspense>
       } />
       <Route path="/register" element={
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#34B0CA]"></div>
+          </div>
+        }>
           <RegisterScreen />
         </Suspense>
       } />
       <Route path="/post/:id" element={
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#34B0CA]"></div>
+          </div>
+        }>
           <ArticleScreen />
         </Suspense>
       } />
       <Route path="/conditions" element={
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#34B0CA]"></div>
+          </div>
+        }>
           <Conditions />
         </Suspense>
       } />
       <Route path="/privacy" element={
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#34B0CA]"></div>
+          </div>
+        }>
           <PrivacyPolicy />
         </Suspense>
       } />
       <Route path="/contact" element={
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#34B0CA]"></div>
+          </div>
+        }>
           <ContactScreen />
         </Suspense>
       } />
       {/* Private Routes */}
       <Route element={<PrivateRoute />}>
         <Route path="/profile" element={
-          <Suspense fallback={<LoadingSpinner />}>
+          <Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen">
+              <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#34B0CA]"></div>
+            </div>
+          }>
             <ProfileScreen />
           </Suspense>
         } />
         <Route path="/posts" element={
-          <Suspense fallback={<LoadingSpinner />}>
+          <Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen">
+              <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#34B0CA]"></div>
+            </div>
+          }>
             <PostsScreen />
           </Suspense>
         } />
