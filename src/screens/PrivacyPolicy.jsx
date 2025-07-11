@@ -45,6 +45,30 @@ const PrivacyPolicy = () => {
           <p>{t('privacyPolicy.dataSecurity')}</p>
         </section>
 
+        {/* NOUVELLE SECTION COOKIES ET GOOGLE ANALYTICS */}
+        <section className="mb-6">
+          <h2 className="text-xl font-semibold mb-2">{t('privacyPolicy.section5bis')}</h2>
+          <p className="mb-2">{t('privacyPolicy.cookiesAndAnalytics')}</p>
+          <ul className="list-disc pl-6 mb-4">
+            <li>{t('privacyPolicy.analyticsList.item1')}</li>
+            <li>{t('privacyPolicy.analyticsList.item2')}</li>
+            <li>{t('privacyPolicy.analyticsList.item3')}</li>
+            <li>{t('privacyPolicy.analyticsList.item4')}</li>
+          </ul>
+          <p className="mb-2">{t('privacyPolicy.cookiesConsent')}</p>
+          <p className="mb-2">
+            <a 
+              href={t('privacyPolicy.googlePrivacyLink')} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
+            >
+              {t('privacyPolicy.googlePrivacyLink')}
+            </a>
+          </p>
+          <p>{t('privacyPolicy.cookiesManagement')}</p>
+        </section>
+
         <section className="mb-6">
           <h2 className="text-xl font-semibold mb-2">{t('privacyPolicy.section6')}</h2>
           <p>{t('privacyPolicy.rights')}</p>

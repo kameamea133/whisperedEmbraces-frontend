@@ -74,6 +74,17 @@
     "dataSharing": "We do not share your personal information with third parties without your consent, except when required by law.",
     "section5": "5. Data Security",
     "dataSecurity": "We take measures to protect your personal information, but we cannot guarantee absolute security. Please use strong passwords and log out after each session.",
+    "section5bis": "5.1. Cookies and Google Analytics",
+    "cookiesAndAnalytics": "We use Google Analytics to analyze the use of our site and improve your experience. Google Analytics uses cookies to collect information anonymously, including:",
+    "analyticsList": {
+      "item1": "The pages you visit and time spent on each page",
+      "item2": "Your approximate geographic location",
+      "item3": "The type of browser and device used",
+      "item4": "Traffic sources (how you arrived on our site)"
+    },
+    "cookiesConsent": "We ask for your consent before activating these cookies. You can refuse or revoke your consent at any time via the cookie banner. For more information about Google's privacy policy, see:",
+    "googlePrivacyLink": "https://policies.google.com/privacy",
+    "cookiesManagement": "You can also manage cookies directly in your browser settings.",
     "section6": "6. Your Rights",
     "rights": "You have the right to:",
     "rightsList": {
