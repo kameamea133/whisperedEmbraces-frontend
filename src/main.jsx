@@ -8,6 +8,21 @@ import { Provider } from 'react-redux';
 import "./lib/i18n"
 import './index.css';
 import App from './App.jsx';
+import ReactGA from 'react-ga4';
+
+// Configuration Google Analytics
+const GA4_MEASUREMENT_ID = import.meta.env.VITE_GA4_MEASUREMENT_ID;
+const isProduction = import.meta.env.PROD;
+
+// Initialiser seulement en production ou si l'ID est défini
+if (GA4_MEASUREMENT_ID && isProduction) {
+  ReactGA.initialize(GA4_MEASUREMENT_ID, {
+    testMode: !isProduction,
+    gtagOptions: {
+      send_page_view: false // On gère manuellement
+    }
+  });
+}
 
 // Lazy loading des composants
 const HomeScreen = lazy(() => import('./screens/HomeScreen'));
