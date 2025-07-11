@@ -4,7 +4,7 @@ import BackgroundMusic from './components/BackgroundMusic'
 import Footer from './components/footer'
 import { useEffect, useState } from 'react'
 import { trackPageView } from './lib/analytics'
-import CookieConsent from "react-cookie-consent"
+import CookieConsent from './components/cookie-consent'
 import './App.css'
 
 function App() {
@@ -12,11 +12,27 @@ function App() {
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
 
   useEffect(() => {
+    // Vérifier le consentement existant au chargement
+    const existingConsent = document.cookie.includes("cookieConsent=true");
+    if (existingConsent) {
+      setCookiesAccepted(true);
+    }
+  }, []);
+
+  useEffect(() => {
     // Track seulement si cookies acceptés
     if (cookiesAccepted) {
       trackPageView(location.pathname, document.title);
     }
   }, [location, cookiesAccepted]);
+
+  const handleAcceptCookies = () => {
+    setCookiesAccepted(true);
+  };
+
+  const handleDeclineCookies = () => {
+    setCookiesAccepted(false);
+  };
 
   return (
     <>
@@ -27,23 +43,13 @@ function App() {
         <Footer />
         
         <CookieConsent
-          location="bottom"
-          buttonText="Accepter"
-          declineButtonText="Refuser"
-          enableDeclineButton
-          cookieName="ga-consent"
-          style={{ background: "#2B373B" }}
-          buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
-          declineButtonStyle={{ color: "#4e503b", fontSize: "13px" }}
-          expires={150}
-          onAccept={() => setCookiesAccepted(true)}
-          onDecline={() => setCookiesAccepted(false)}
-        >
-          Ce site utilise des cookies pour analyser le trafic et améliorer votre expérience. 
-          <span style={{ fontSize: "10px" }}>
-            {" "}Consultez notre <a href="/privacy">politique de confidentialité</a>.
-          </span>
-        </CookieConsent>
+          variant="small"
+          description="Ce site utilise des cookies pour analyser le trafic et améliorer votre expérience. En acceptant, vous consentez à notre utilisation des cookies."
+          learnMoreHref="/privacy"
+          onAcceptCallback={handleAcceptCookies}
+          onDeclineCallback={handleDeclineCookies}
+          className="sm:left-4 sm:bottom-4"
+        />
       </div>
     </>
   )
