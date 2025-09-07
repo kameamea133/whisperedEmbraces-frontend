@@ -9,6 +9,14 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "vercel": {
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/index.html"
+      }
+    ]
+  },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
